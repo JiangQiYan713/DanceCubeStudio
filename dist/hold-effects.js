@@ -1,0 +1,10 @@
+/* Small bounded raster cache: sustain lasers cost one image draw per frame after warmup. */
+'use strict';
+(function(root){
+const cache=new Map(),LIMIT=72,R=26.4,SIDE=112,DPR=Math.min(2,root.devicePixelRatio||1);
+const key=(multi,phase,web)=>[multi?1:0,phase%12,Number(web?.hue)||0,Number(web?.brightness??100)].join('|');
+function glyph(multi,phase,web={}){const id=key(multi,phase,web);if(cache.has(id)){const result=cache.get(id);cache.delete(id);cache.set(id,result);return result;}if(!root.document?.createElement)return null;const canvas=document.createElement('canvas');canvas.width=canvas.height=SIDE*DPR;const c=canvas.getContext('2d');if(!c)return null;c.scale(DPR,DPR);c.translate(SIDE/2,SIDE/2);const color=multi?'#f40098':'#00ea08';c.strokeStyle=c.shadowColor=color;c.shadowBlur=5;c.lineWidth=2;c.filter=(Number(web.hue)||Number(web.brightness??100)!==100)?`hue-rotate(${web.hue||0}deg) brightness(${web.brightness??100}%)`:'none';for(let k=0;k<3;k++){const pulse=((phase+k*3)%12)/12,rr=R*(.65+pulse*.75);c.globalAlpha=(1-pulse)*.75;c.beginPath();for(let j=0;j<12;j++){const a=j*Math.PI/6;c.moveTo(Math.cos(a)*rr,Math.sin(a)*rr);c.arc(0,0,rr,a,a+Math.PI/11);}c.stroke();}cache.set(id,canvas);while(cache.size>LIMIT){const first=cache.keys().next().value;cache.get(first)?.close?.();cache.delete(first);}return canvas;}
+function draw(c,x,y,radius,multi,phase,web,alpha){const image=glyph(multi,phase,web);if(!image)return false;const side=SIDE*radius/R;c.save();c.translate(x,y);c.rotate(phase*.035);c.globalAlpha*=alpha*(web?.opacity??100)/100;c.drawImage(image,-side/2,-side/2,side,side);c.restore();return true;}
+async function prepare(web={}){for(let phase=0;phase<12;phase++){for(const multi of [false,true]){const id=key(multi,phase,web),canvas=glyph(multi,phase,web);if(root.createImageBitmap&&canvas?.getContext)try{const bitmap=await root.createImageBitmap(canvas);if(cache.get(id)===canvas)cache.set(id,bitmap);else bitmap.close?.();}catch{}}if(phase%3===2)await new Promise(resolve=>setTimeout(resolve,0));}}
+root.DCHoldEffects={draw,prepare,cache,LIMIT};
+})(typeof window==='undefined'?globalThis:window);

@@ -1,0 +1,17 @@
+'use strict';
+(function(root){
+const C=root.DCCore,P=root.DCProject;
+function scoped(item,songs,assets){const prefix=item.assetPrefix||'',others=songs.filter(s=>s.id!==item.id&&s.assetPrefix).map(s=>s.assetPrefix);return[...assets].filter(([key])=>key.startsWith(prefix)&&(prefix||!others.some(p=>key.startsWith(p)))).map(([key,value])=>({key,name:key.slice(prefix.length),value}));}
+function resolve(item,ch,name,songs,assets){if(!name)return[];const files=scoped(item,songs,assets),dir=(ch.filename||'').slice(0,(ch.filename||'').lastIndexOf('/')+1),exact=files.filter(f=>f.name===dir+name||f.name===name);return exact.length?exact:files.filter(f=>f.name.split('/').pop()===name.split('/').pop());}
+function refs(item,charts,songs,assets){const found=new Set();for(const ch of charts){const names=new Set([ch.audioName,ch.backgroundName]),stack=[ch.rawMC];while(stack.length){const v=stack.pop();if(typeof v==='string')names.add(v);else if(v&&typeof v==='object'){for(const child of Object.values(v))stack.push(child);}}for(const name of names)for(const f of resolve(item,ch,name,songs,assets))found.add(f.key);}return found;}
+function analysisPrefixes(project,assets){const prefixes=new Set(),checksums=new Map();for(const item of project.songs)for(const ch of item.charts){const file=resolve(item,ch,ch.audioName,project.songs,assets)[0];if(!file)continue;if(!checksums.has(file.key))checksums.set(file.key,C.crc32(file.value.data));prefixes.add('analysis:'+ch.audioName+':'+checksums.get(file.key)+':');}return prefixes;}
+function blank(){const ch=C.validateChart({id:C.uid(),name:'空白谱面',level:1,bpm:120,notes:[],timings:[],effects:[],offset:0,audioName:'',backgroundName:''}),id=C.uid();return{id,song:{title:'未命名歌曲',artist:''},charts:[ch],activeChartId:ch.id,assetPrefix:'song-'+id+'/',view:{position:0,bottomBeat:null},expanded:true,chartExpanded:{}};}
+function plan(input,assets,{songId,chartId=null}){
+ const project=P.normalize(input),item=project.songs.find(s=>s.id===songId);if(!item)throw Error('歌曲已不存在');const ch=chartId?item.charts.find(c=>c.id===chartId):null;if(chartId&&!ch)throw Error('该难度已不存在');
+ const whole=!chartId||item.charts.length===1,oldPrefixes=analysisPrefixes(project,assets),keys=whole?new Set(scoped(item,project.songs,assets).map(f=>f.key)):refs(item,[ch],project.songs,assets),activeChanged=project.activeSongId===songId&&(whole||project.activeChartId===chartId),oldIndex=project.songs.indexOf(item);
+ if(whole){project.songs.splice(oldIndex,1);if(!project.songs.length)project.songs.push(blank());if(project.activeSongId===songId)project.activeSongId=project.songs[Math.min(oldIndex,project.songs.length-1)].id;}else{const index=item.charts.indexOf(ch);item.charts.splice(index,1);delete item.chartExpanded[chartId];if(item.activeChartId===chartId){item.activeChartId=item.charts[Math.min(index,item.charts.length-1)].id;item.view={position:0,bottomBeat:null};}for(const key of refs(item,item.charts,project.songs,assets))keys.delete(key);}
+ P.activate(project,project.activeSongId);const nextAssets=new Map([...assets].filter(([key])=>!keys.has(key))),keep=analysisPrefixes(project,nextAssets),dropAnalysis=[...oldPrefixes].filter(p=>!keep.has(p));
+ return{project,assets:nextAssets,whole,activeChanged,packageIds:[songId],analysisPrefixes:dropAnalysis,removedKeys:[...keys],mediaBytes:[...keys].reduce((sum,key)=>sum+(assets.get(key)?.data?.byteLength??assets.get(key)?.data?.length??0),0)};
+}
+root.DCLocalLibrary={scoped,resolve,refs,analysisPrefixes,blank,plan};
+})(typeof window==='undefined'?globalThis:window);

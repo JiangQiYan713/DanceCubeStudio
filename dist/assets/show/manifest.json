@@ -1,0 +1,136 @@
+{
+  "source": "official public demoShow PNG + maintainer-supplied dcbase-1.9.51.apk",
+  "checked_date": "2026-11-02",
+  "files": [
+    {
+      "filename": "cursor1.png",
+      "width": 60,
+      "height": 60,
+      "size_bytes": 9920,
+      "sha256": "9a88e5d61d0fa9e9bb004204d76677ae30067ce7f4cd20791a19ba4c6537e0f4",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/cursor1.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/cursor1.png"
+    },
+    {
+      "filename": "cursor2.png",
+      "width": 60,
+      "height": 60,
+      "size_bytes": 9946,
+      "sha256": "d206a9ba68c3cd1a682f7192cef58fe5e28f9ef59ccf9c4895c6453a601214ef",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/cursor2.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/cursor2.png"
+    },
+    {
+      "filename": "cursor3.png",
+      "width": 60,
+      "height": 60,
+      "size_bytes": 10177,
+      "sha256": "0906cdefcdc8a18a0881dd8f9741a001dd7c1dde92379b0464dde8382fa59ba9",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/cursor3.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/cursor3.png"
+    },
+    {
+      "filename": "cursor4.png",
+      "width": 60,
+      "height": 60,
+      "size_bytes": 9554,
+      "sha256": "867af412c2e3b9e791e7372167101dc34afda242c34ada816b89bc1dcb1126ee",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/cursor4.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/cursor4.png"
+    },
+    {
+      "filename": "cursor5.png",
+      "width": 60,
+      "height": 60,
+      "size_bytes": 8483,
+      "sha256": "acd1e00fa7919532ecead5e1826226b81cc18035605c82873f48c617910d14bb",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/cursor5.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/cursor5.png"
+    },
+    {
+      "filename": "cursor6.png",
+      "width": 60,
+      "height": 60,
+      "size_bytes": 8762,
+      "sha256": "29f5530f76143585f0924d5bd1615c042e49c334dffd644dfdeebc5913f55b88",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/cursor6.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/cursor6.png"
+    },
+    {
+      "filename": "cursor7.png",
+      "width": 60,
+      "height": 60,
+      "size_bytes": 8770,
+      "sha256": "bfebb813e54e5e999f7c53cfd668fb13097cbd10bdd0e6407ea6a2a06a550d9a",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/cursor7.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/cursor7.png"
+    },
+    {
+      "filename": "cursor8.png",
+      "width": 60,
+      "height": 60,
+      "size_bytes": 8593,
+      "sha256": "04cefa73549bd92a39fefd5df5fb073da344f69b85c4bb513de5956253d3f20c",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/cursor8.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/cursor8.png"
+    },
+    {
+      "filename": "changana.png",
+      "width": 233,
+      "height": 75,
+      "size_bytes": 6168,
+      "sha256": "eab7e9ffb2caff24ca8fad0bfaec374011955f6fa162de5bf28693900765db6b",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/changana.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/changana.png"
+    },
+    {
+      "filename": "changanb.png",
+      "width": 233,
+      "height": 75,
+      "size_bytes": 6371,
+      "sha256": "0a98efbed72a7d25a4ad99051e20c67f270344a9d9abccb0d838e6511dff88bf",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/changanb.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/changanb.png"
+    },
+    {
+      "filename": "changanc.png",
+      "width": 233,
+      "height": 75,
+      "size_bytes": 6064,
+      "sha256": "b5a384a72eb335a1666052b4053721e1651e75ac1f316b149167f405e3f20043",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/changanc.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/changanc.png"
+    },
+    {
+      "filename": "changand.png",
+      "width": 233,
+      "height": 75,
+      "size_bytes": 6023,
+      "sha256": "137e90df243c52a927de0c8250b425d717b91a199a679d5e67dc621287c88826",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/changand.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/changand.png"
+    },
+    {
+      "filename": "long.png",
+      "width": 78,
+      "height": 320,
+      "size_bytes": 17531,
+      "sha256": "ab61a107291266edb348ea35f9f622cef500e3a6db7da3a4aa181e7f1bd6007f",
+      "official_url": "https://dancewebdemo.shenghuayule.com/dance/static/demoShow/long.png",
+      "matches_apk": true,
+      "apk_path": "assets/apps/__UNI__0AF93CF/www/static/demoShow/long.png"
+    }
+  ]
+}

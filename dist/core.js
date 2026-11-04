@@ -1,0 +1,72 @@
+/* DanceCube Studio core. Canonical lane is always the Malody zero-based column. */
+(function(root){
+'use strict';
+const clone=o=>JSON.parse(JSON.stringify(o));
+const uid=()=>globalThis.crypto?.randomUUID?.()||'dc'+Date.now().toString(36)+Math.random().toString(36).slice(2);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const LAYOUTS={dancecube:[0,1,2,5,4,3],malody:[0,1,2,3,4,5]};
+const MIRRORS={horizontal:[3,4,5,0,1,2],vertical:[2,1,0,5,4,3],rotation:[5,4,3,2,1,0]};
+const ANGLES=[-120,180,120,-60,0,60];
+const LEVELS=[{name:'基础',color:'#3698ef'},{name:'进阶',color:'#32bc82'},{name:'专家',color:'#aa78f8'},{name:'大师',color:'#f16a82'},{name:'传奇',color:'#e7b94c'}];
+function beatValue(a){if(!Array.isArray(a)||a.length!==3||!a.every(Number.isFinite)||a[2]<=0)throw Error('无效的 Malody 拍数');return a[0]+a[1]/a[2];}
+function beatArray(x){let i=Math.floor(x),n=Math.round((x-i)*61440),d=61440; if(n===d)return[i+1,0,1];const gcd=(a,b)=>b?gcd(b,a%b):a;const g=gcd(n,d);return[i,n/g,d/g];}
+function levelValue(value){if(value===null||value===undefined||typeof value==='boolean'||typeof value==='string'&&!value.trim())return null;const n=Number(value);return Number.isFinite(n)&&n>=0&&n<=100?n:null;}
+function inferTier(level){return level<6?0:level<10?1:level<14?2:level<17?3:4;}
+function rawTime(chart,beat){let t=0,b=0,bpm=chart.bpm;for(const n of chart.timings){if(n.beat>beat)break;t+=(n.beat-b)*60/bpm;b=n.beat;bpm=n.bpm;}return t+(beat-b)*60/bpm;}
+function rawBeat(chart,time){let b=0,bpm=chart.bpm,t=time;for(const n of chart.timings){const dt=(n.beat-b)*60/bpm;if(t<dt)return b+t*bpm/60;t-=dt;b=n.beat;bpm=n.bpm;}return b+t*bpm/60;}
+// Malody sound offset is kept verbatim. Positive offset puts a beat earlier in the audio.
+function beatToTime(chart,beat){return rawTime(chart,beat)-rawTime(chart,chart.audioBeat||0)-(chart.offset||0)/1000;}
+function timeToBeat(chart,time){return rawBeat(chart,time+rawTime(chart,chart.audioBeat||0)+(chart.offset||0)/1000);}
+function validateChart(input){const c=clone(input);if(!Array.isArray(c.notes)||c.notes.length>200000)throw Error('谱面音符数无效');
+ if(!Number.isFinite(c.bpm)||c.bpm<=0||c.bpm>2000)throw Error('BPM 需要大于 0 且不超过 2000');
+ if(c.mode==='show'){if(!root.DCShow)throw Error('秀谱模块不可用');Object.assign(c,root.DCShow.normalizeChart(c));}c.id=String(c.id||uid());c.name=String(c.name||'Dance Cube Lv.'+(c.level??1));c.level=levelValue(c.level)===null?1:clamp(levelValue(c.level),0,100);c.tier=clamp(Math.trunc(c.tier??inferTier(c.level)),0,4);
+ c.offset=Number(c.offset)||0;c.audioBeat=Number(c.audioBeat)||0;c.creator=String(c.creator||'');c.audioName=String(c.audioName||'');c.backgroundName=String(c.backgroundName||'');
+ c.timings=(c.timings||[]).map(n=>({beat:+n.beat,bpm:+n.bpm})).sort((a,b)=>a.beat-b.beat);
+ if(c.timings.some(n=>!Number.isFinite(n.beat)||n.beat<=0||!Number.isFinite(n.bpm)||n.bpm<=0||n.bpm>2000)||new Set(c.timings.map(n=>n.beat)).size!==c.timings.length)throw Error('BPM 节点无效或重复');
+ c.effects=clone(c.effects||[]);for(const e of c.effects){const b=beatValue(e.beat);if(b<0||!Number.isFinite(b)||('scroll'in e&&!Number.isFinite(e.scroll)))throw Error('effect 节点无效');}c.effects.sort((a,b)=>beatValue(a.beat)-beatValue(b.beat));
+ c.notes=c.notes.map((n,i)=>{const beat=+n.beat,lane=+n.lane,end=n.end==null?null:+n.end;if(!Number.isFinite(beat)||beat<0||beat>100000||!Number.isInteger(lane)||lane<0||lane>5||end!==null&&(!Number.isFinite(end)||end<beat||end>100000))throw Error('第 '+(i+1)+' 个音符无效');return {...n,id:n.id||uid(),beat,lane,end,fake:end===beat};}).sort((a,b)=>a.beat-b.beat||a.lane-b.lane);
+ c.beats=c.notes.reduce((m,n)=>Math.max(m,(n.end??n.beat)+4),Math.max(16,+c.beats||16));if(c.mode==='show'){for(const n of c.shownotes)c.beats=Math.max(c.beats,beatValue(n.kind==='slide'?n.segments.at(-1).end:n.end||n.beat)+4);c.showStats=root.DCShow.stats(c);}return c;}
+function fromMC(mc,filename=''){if(mc.meta?.mode!==0||mc.meta?.mode_ext?.column!==6)throw Error('仅支持 Malody Key 6K 谱面（mode=0，column=6）');
+ if(!Array.isArray(mc.note)||!Array.isArray(mc.time)||!mc.time.length)throw Error('MC 缺少 note 或 time');
+ const tempos=mc.time.map(n=>({beat:beatValue(n.beat),bpm:+n.bpm})).sort((a,b)=>a.beat-b.beat);if(tempos[0].beat!==0)throw Error('首个 BPM 必须在第 0 拍');
+ const sound=mc.note.find(n=>n.type===1&&n.sound)||{},ver=mc.meta.version||'',m=ver.match(/(?:Lv\.?\s*|LEVEL\s*)(\d+(?:\.\d+)?)/i);const ext=mc.extra?.dc_studio_v2;
+ return validateChart({id:uid(),filename,name:ver||'Dance Cube',creator:mc.meta.creator||'',level:ext?.level??+(m?.[1]??12),showBackup:mc.extra?.dc_show_backup,tier:ext?.tier,txtMerge:ext?.txtMerge,bpm:tempos[0].bpm,timings:tempos.slice(1),effects:mc.effect||[],offset:sound.offset??ext?.offset??0,audioBeat:sound.beat?beatValue(sound.beat):ext?.audioBeat||0,audioName:sound.sound||'',backgroundName:mc.meta.background||'',beats:16,rawMC:clone(mc),notes:mc.note.filter(n=>n.column!=null&&(n.type==null||n.type===0)).map(n=>({id:uid(),beat:beatValue(n.beat),lane:n.column,end:n.endbeat?beatValue(n.endbeat):null,raw:clone(n)}))});}
+function toMC(chart,song){const c=validateChart(chart),mc=clone(c.rawMC||{});mc.meta={...mc.meta,$ver:mc.meta?.$ver??0,creator:c.creator,background:c.backgroundName,version:c.name,id:mc.meta?.id||0,mode:0,time:Math.floor(Date.now()/1000),song:{...mc.meta?.song,title:song.title,artist:song.artist,id:mc.meta?.song?.id||0},mode_ext:{...mc.meta?.mode_ext,column:6}};
+ mc.time=[{beat:[0,0,1],bpm:c.bpm},...c.timings.map(n=>({beat:beatArray(n.beat),bpm:n.bpm}))];mc.effect=clone(c.effects);
+ const others=(mc.note||[]).filter(n=>n.column==null||n.type&&n.type!==0);let found=false;for(const s of others)if(s.type===1&&s.sound&&!found){s.beat=beatArray(c.audioBeat);s.offset=c.offset;s.sound=c.audioName;found=true;}
+ if(!found&&c.audioName)others.push({beat:beatArray(c.audioBeat),sound:c.audioName,offset:c.offset,vol:100,type:1});
+ mc.note=[...c.notes.map(n=>{const v={...n.raw,beat:n.raw?.beat&&Math.abs(beatValue(n.raw.beat)-n.beat)<1e-9?clone(n.raw.beat):beatArray(n.beat),column:n.lane};delete v.endbeat;if(n.end!==null)v.endbeat=n.raw?.endbeat&&Math.abs(beatValue(n.raw.endbeat)-n.end)<1e-9?clone(n.raw.endbeat):beatArray(n.end);return v;}),...others];
+ if(c.showBackup)mc.extra={...mc.extra,dc_show_backup:clone(c.showBackup)};mc.extra={...mc.extra,dc_studio_v2:{tier:c.tier,level:c.level,txtMerge:c.txtMerge,offset:c.offset,audioBeat:c.audioBeat}};return mc;}
+// Highlight only a whole simultaneous group of identical taps or identical holds.
+function isFake(n){return n.end!==null&&n.end===n.beat;}
+function chordHighlights(notes){const groups=new Map(),ids=new Set();for(const n of notes){const key=n.beat.toFixed(7)+':'+(isFake(n)?'fake':'real');if(!groups.has(key))groups.set(key,[]);groups.get(key).push(n);}for(const group of groups.values())if(group.length>=2&&(group.every(n=>n.end===null)||group.every(isFake)||group[0].end!==null&&group.every(n=>n.end!==null&&Math.abs(n.end-group[0].end)<1e-7)))for(const n of group)ids.add(n.id);return ids;}
+function beatParts(x,preferred=4){if(!Number.isFinite(x))throw Error('拍数必须为有限数');const i=Math.floor(x),fraction=x-i;if(Math.abs(fraction)<1e-7)return[i,0,preferred];for(const d of [...new Set([preferred,2,3,4,6,8,12,16,24,32,48,64,192,61440])]){const n=Math.round(fraction*d);if(Math.abs(n/d-fraction)<1e-7)return n===d?[i+1,0,d]:[i,n,d];}return beatArray(x);}
+function parseBeat(value){if(typeof value==='number'){if(!Number.isFinite(value))throw Error('无效拍数');return value;}const text=String(value).trim(),m=text.match(/^\[?\s*(-?\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\]?$/);if(m){const a=m.slice(1).map(Number);if(a[2]<=0||a[1]>=a[2])throw Error('分母需大于 0，分子需小于分母');return beatValue(a);}if(!text||!/^[-+]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(text))throw Error('拍数格式为 [110,0,4] 或 110');const n=Number(text);if(!Number.isFinite(n))throw Error('无效拍数');return n;}
+function applyTiming(chart,result){return validateChart({...clone(chart),bpm:result.bpm,offset:result.offset,audioBeat:0,timings:result.timings.map(n=>({beat:n.beat,bpm:n.bpm})),timingCalibration:{method:result.method,confidence:result.confidence,at:Date.now()}});}
+function scrollNodes(chart){const nodes=[{time:-1e9,scroll:1}];for(const e of chart.effects)if('scroll'in e)nodes.push({time:beatToTime(chart,beatValue(e.beat)),scroll:e.scroll});return nodes.sort((a,b)=>a.time-b.time);}
+function scrollIntegral(nodes,from,to){if(to<from)return-scrollIntegral(nodes,to,from);let sum=0,cur=from,s=1;for(const n of nodes){if(n.time<=from){s=n.scroll;continue;}if(n.time>=to)break;sum+=(n.time-cur)*s;cur=n.time;s=n.scroll;}return sum+(to-cur)*s;}
+function scrollAt(chart,time){let s=1;for(const e of scrollNodes(chart))if(e.time<=time)s=e.scroll;else break;return s;}
+function overlaps(a,b){return isFake(a)!==isFake(b)?false:a.lane===b.lane&&Math.max(a.beat,b.beat)<=Math.min(a.end??a.beat,b.end??b.beat)+1e-6;}
+function transformNotes(notes,ids,{deltaBeat=0,deltaColumn=0,layout=LAYOUTS.dancecube,mirror=null,copy=false}={}){const chosen=notes.filter(n=>ids.has(n.id));const transformed=chosen.map(n=>{const col=layout.indexOf(n.lane)+deltaColumn;if(col<0||col>5)return null;const lane=mirror?MIRRORS[mirror][n.lane]:layout[col];return {...clone(n),id:copy?uid():n.id,lane,beat:+(n.beat+deltaBeat).toFixed(7),end:n.end===null?null:+(n.end+deltaBeat).toFixed(7)};});
+ if(transformed.some(n=>!n||n.beat<0))return {ok:false,reason:'超出轨道或第 0 拍，整组保持原位'};
+ const rest=copy?notes:notes.filter(n=>!ids.has(n.id));if(transformed.some(a=>rest.some(b=>overlaps(a,b))))return {ok:false,reason:'目标位置与已有音符重叠，整组保持原位'};
+ return {ok:true,notes:[...rest,...transformed].sort((a,b)=>a.beat-b.beat||a.lane-b.lane),ids:transformed.map(n=>n.id)};}
+function learn(charts){return charts.map(c=>{const groups=[];for(const n of c.notes.filter(n=>!isFake(n))){let g=groups[groups.length-1];if(!g||Math.abs(g.beat-n.beat)>1e-5){g={beat:n.beat,lanes:[],holds:[]};groups.push(g);}g.lanes.push(n.lane);g.holds.push(n.end===null?0:n.end-n.beat);}
+ const transitions=Array.from({length:6},()=>Array(6).fill(1));for(let i=1;i<groups.length;i++)for(const a of groups[i-1].lanes)for(const b of groups[i].lanes)transitions[a][b]++;
+ const blocks=[];for(let b=0;b<c.beats;b+=8){const ns=c.notes.filter(n=>n.beat>=b&&n.beat<b+8);if(ns.length>=3)blocks.push(ns.map(n=>({beat:n.beat-b,lane:n.lane,end:n.end===null?null:Math.min(8,n.end-b)})));}
+ const gaps=groups.slice(1).map((g,i)=>+(g.beat-groups[i].beat).toFixed(5)),hist={};for(const g of gaps)hist[g]=(hist[g]||0)+1;
+ return {level:c.level,notes:c.notes.length,beats:c.beats,density:c.notes.length/c.beats,chordRate:groups.filter(g=>g.lanes.length>1).length/groups.length,holdRate:c.notes.filter(n=>n.end!==null).length/c.notes.length,transitions,intervals:hist,blocks};});}
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function generatePlan(...args){return root.DCRhythm.generatePlan(...args);}
+const crcTable=Array.from({length:256},(_,i)=>{let c=i;for(let k=0;k<8;k++)c=c&1?0xedb88320^(c>>>1):c>>>1;return c>>>0;});
+function crc32(data){let c=0xffffffff;for(const n of data)c=crcTable[(c^n)&255]^(c>>>8);return(c^0xffffffff)>>>0;}
+function zipStore(files){let offset=0;const entries=[],chunks=[];for(const f of files){const name=new TextEncoder().encode(f.name),data=f.data,crc=crc32(data),head=new Uint8Array(30+name.length),v=new DataView(head.buffer);v.setUint32(0,0x04034b50,true);v.setUint16(4,20,true);v.setUint16(6,0x0800,true);v.setUint32(14,crc,true);v.setUint32(18,data.length,true);v.setUint32(22,data.length,true);v.setUint16(26,name.length,true);head.set(name,30);chunks.push(head,data);entries.push({name,crc,size:data.length,offset});offset+=head.length+data.length;}
+ const start=offset;for(const e of entries){const h=new Uint8Array(46+e.name.length),v=new DataView(h.buffer);v.setUint32(0,0x02014b50,true);v.setUint16(4,20,true);v.setUint16(6,20,true);v.setUint16(8,0x0800,true);v.setUint32(16,e.crc,true);v.setUint32(20,e.size,true);v.setUint32(24,e.size,true);v.setUint16(28,e.name.length,true);v.setUint32(42,e.offset,true);h.set(e.name,46);chunks.push(h);offset+=h.length;}const end=new Uint8Array(22),v=new DataView(end.buffer);v.setUint32(0,0x06054b50,true);v.setUint16(8,entries.length,true);v.setUint16(10,entries.length,true);v.setUint32(12,offset-start,true);v.setUint32(16,start,true);chunks.push(end);return new Blob(chunks,{type:'application/zip'});}
+async function unzip(buffer){if(buffer.byteLength<22)throw Error('ZIP 文件不完整');const a=new Uint8Array(buffer),v=new DataView(buffer),files=[];let end=-1;
+ for(let i=a.length-22;i>=Math.max(0,a.length-65557);i--)if(v.getUint32(i,true)===0x06054b50){end=i;break;}if(end<0)throw Error('不是有效的 ZIP / MCZ / MSZ');const count=v.getUint16(end+10,true);if(count>3000)throw Error('文件数超过 3000');let p=v.getUint32(end+16,true),sum=0;
+ for(let i=0;i<count;i++){if(p+46>a.length||v.getUint32(p,true)!==0x02014b50)throw Error('ZIP 目录损坏');const flags=v.getUint16(p+8,true),method=v.getUint16(p+10,true),size=v.getUint32(p+20,true),rawSize=v.getUint32(p+24,true),nl=v.getUint16(p+28,true),el=v.getUint16(p+30,true),cl=v.getUint16(p+32,true),lo=v.getUint32(p+42,true),crc=v.getUint32(p+16,true);const name=new TextDecoder('utf-8').decode(a.slice(p+46,p+46+nl));sum+=rawSize;
+ if(sum>220*1024*1024||rawSize>100*1024*1024)throw Error('解压大小超过安全上限 220 MB');if(flags&1)throw Error('不支持加密包');if(lo+30>a.length)throw Error('ZIP 文件损坏');const start=lo+30+v.getUint16(lo+26,true)+v.getUint16(lo+28,true);if(start+size>a.length)throw Error('ZIP 数据不完整');const compressed=a.slice(start,start+size);let data;
+ if(method===0)data=compressed;else if(method===8){try{data=new Uint8Array(await new Response(new Blob([compressed]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer());}catch(e){throw Error('当前浏览器不支持解压，请用新版 Chrome / Edge 或解压后导入');}}else throw Error('不支持的 ZIP 压缩方式');
+ if(data.length!==rawSize||crc32(data)!==crc)throw Error('ZIP 校验失败');if(!name.endsWith('/')&&!name.includes('..')&&!name.startsWith('/'))files.push({name,data});p+=46+nl+el+cl;}return files;}
+root.DCCore={clone,uid,clamp,LAYOUTS,MIRRORS,ANGLES,LEVELS,beatValue,beatArray,beatParts,parseBeat,isFake,levelValue,inferTier,rawTime,rawBeat,beatToTime,timeToBeat,fromMC,toMC,validateChart,chordHighlights,applyTiming,scrollNodes,scrollIntegral,scrollAt,overlaps,transformNotes,learn,generatePlan,crc32,zipStore,unzip};
+})(typeof window==='undefined'?globalThis:window);

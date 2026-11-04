@@ -1,0 +1,257 @@
+[
+  {
+    "MusicID": 21299,
+    "GoodsID": 13373,
+    "GoodsName": "Creeping",
+    "IsEnabled": true,
+    "LevelList": [
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 11
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 12
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 14
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 15
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 101
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 102
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 103
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 104
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 105
+      },
+      {
+        "MusicLev": 2,
+        "MusicLevel": 0,
+        "MusicLevNew": 13
+      }
+    ],
+    "ListFile": [
+      {
+        "MusicLev": 2,
+        "FileType": 2,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 2,
+        "FileType": 3,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 2,
+        "FileType": 4,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 13,
+        "FileType": 1,
+        "IsBad": false
+      }
+    ]
+  },
+  {
+    "MusicID": 14384,
+    "GoodsID": 7471,
+    "GoodsName": "TryHardNinja-Revenge（Minecraft Song）（李祥晖 Bootleg）",
+    "IsEnabled": true,
+    "LevelList": [
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 11
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 12
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 15
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 101
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 102
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 103
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 104
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 105
+      },
+      {
+        "MusicLev": 1,
+        "MusicLevel": 14,
+        "MusicLevNew": 13
+      },
+      {
+        "MusicLev": 2,
+        "MusicLevel": 0,
+        "MusicLevNew": 14
+      }
+    ],
+    "ListFile": [
+      {
+        "MusicLev": 2,
+        "FileType": 2,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 2,
+        "FileType": 3,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 2,
+        "FileType": 4,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 13,
+        "FileType": 1,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 13,
+        "FileType": 5,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 14,
+        "FileType": 1,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 14,
+        "FileType": 5,
+        "IsBad": false
+      }
+    ]
+  },
+  {
+    "MusicID": 5085,
+    "GoodsID": 1349,
+    "GoodsName": "In My Head",
+    "IsEnabled": false,
+    "LevelList": [
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 11
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 12
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 14
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 15
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 101
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 102
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 103
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 104
+      },
+      {
+        "MusicLev": -1,
+        "MusicLevel": -1,
+        "MusicLevNew": 105
+      },
+      {
+        "MusicLev": 2,
+        "MusicLevel": 13,
+        "MusicLevNew": 13
+      }
+    ],
+    "ListFile": [
+      {
+        "MusicLev": 13,
+        "FileType": 1,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 13,
+        "FileType": 2,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 13,
+        "FileType": 3,
+        "IsBad": false
+      },
+      {
+        "MusicLev": 13,
+        "FileType": 4,
+        "IsBad": false
+      }
+    ]
+  }
+]

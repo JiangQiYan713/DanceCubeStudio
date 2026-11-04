@@ -1,0 +1,255 @@
+@texpack main
+@version 3.5.0
+:qumu-1
+	name=fade,from=100,to=0,atime=(-100,+150)
+:combo
+	name=fade,from=0,to=100,atime=(0,+1)
+
+_bg
+	tex=bg-0.png
+	anchor=4
+	size=654.5,709.1
+	pos=50%,50%
+	zindex=7
+_Mask
+	tex=Mask.png
+	anchor=4
+	size=2700,972
+	pos=50%,50%
+	zindex=10
+
+_combo
+	tex=COMBO.png
+	anchor=4
+	size=61.82,25.45
+	pos=50%-33,50%+12
+	motion=combo
+	opacity=0
+	zindex=11
+
+_score
+	tex=Score.png
+	size=100,36.36
+	anchor=4
+	pos=50%-63.8,50%+249.5
+	zindex=6
+
+_accuracy
+	tex=Accuracy.png
+	size=100,36.36
+	anchor=4
+	pos=50%-60,50%+213.5
+	zindex=6
+
+_jindutiao
+	tex=jindutiao.png
+	anchor=4
+	size=58.18,157.27
+	pos=50%+299,50%+90
+	zindex=6
+_qumu12
+	tex=qumu12.png
+	anchor=4
+	size=146.5,36.37
+	pos=50%,50%
+	motion=qumu-1
+	zindex=10
+
+hit-[1-6]
+    anchor=4
+    frame=HitFX/0-31
+    frame2=PressFX/0-31
+	frame3=LightFX/0-31
+	size=654.55,709.1
+    zindex=8
+    interval=70
+hit-1
+	rotate=60
+	pos=50%-140.5,50%+247.5
+hit-2
+	pos=50%-282,50%
+hit-3
+	rotate=300
+	pos=50%-140.5,50%-247.5
+hit-4
+	rotate=120
+	pos=50%+142.5,50%+247.5
+hit-5
+	rotate=180
+	pos=50%+283,50%
+hit-6
+	rotate=240
+	pos=50%+142.5,50%-247.5
+
+press-[1-6]
+    opacity=0
+    anchor=4
+	size=633.6,686.4
+    zindex=8
+
+press-1
+	rotate=60
+	pos=hit-1 0,0
+press-2
+	pos=hit-2 0,0
+press-3
+	rotate=300
+	pos=hit-3 0,0
+press-4
+	rotate=120
+	pos=hit-4 0,0
+press-5
+	rotate=180
+	pos=hit-5 0,0
+press-6
+	rotate=240
+	pos=hit-6 0,0
+
+	
+note-[1-6]
+    type=2
+    anchor=4 
+    tex=guangbiaoa.png
+    tex2=changtiao.png
+    tex3=guangbiaoc.png
+    tex4=guangbiaob.png
+	size=52.8,52.8
+    toggle=1+2
+
+note-1
+    pos=50%-27.5,50%+49.5
+	pos2=press-1 0,0
+note-2
+    pos=50%-50,50%-1
+	pos2=press-2 0,0
+note-3
+    pos=50%-27.5,50%-49.5
+	pos2=press-3 0,0
+note-4
+    pos=50%+27.5,50%+49.5
+	pos2=press-4 0,0
+note-5
+    pos=50%+50,50%-1
+	pos2=press-5 0,0
+note-6
+    pos=50%+27.5,50%-49.5
+	pos2=press-6 0,0
+
+judge-1
+    type=1
+    anchor=4
+    size=87.27,23.64
+	frame=Judge/0-3
+    zindex=20
+    interval=100
+	pos=press-1 60.5,29.7
+judge-2
+    type=1
+    anchor=4
+    size=87.27,23.64
+    frame=Judge/0-3
+    zindex=20
+    interval=100
+	pos=press-2 60.5,29.7
+judge-3
+    type=1
+    anchor=4
+    size=87.27,23.64
+    frame=Judge/0-3
+    zindex=20
+    interval=100
+	pos=press-3 60.5,29.7
+judge-4
+    type=1
+    anchor=4
+	size=87.27,23.64
+    frame=Judge/0-3
+    zindex=20
+    interval=100
+	pos=press-4 -60.5,29.7
+judge-5
+    type=1
+    anchor=4
+    frame=Judge/0-3
+    size=87.27,23.64
+    zindex=20
+    interval=100
+	pos=press-5 -60.5,29.7
+judge-6
+    type=1
+    anchor=4
+    frame=Judge/0-3
+    size=87.27,23.64
+    zindex=20
+    interval=100
+    pos=press-6 -60.5,29.7
+	
+score-combo
+    anchor=4
+    type=0
+    frame=combo/0-9
+    fsize=31
+    pos=50%+16.5,50%-33
+	pos2=0.8px,0
+    zindex=0
+	opacity=0
+	motion=combo
+score-acc
+    anchor=3
+    type=0
+    frame=num/0-11
+	fsize=21.5
+    pos=50%-10,50%+213.5
+	pos2=0.5px,0
+    zindex=6
+score-score
+    anchor=3
+    type=0
+    frame=num/0-11
+	fsize=21.5
+    pos=50%-30.8,50%+249.5
+    pos2=0.5px,0
+    zindex=6
+progress
+	type=0
+	tex=Process.png
+	anchor=4
+	rotate=270
+	size=157.27,58.18
+	pos=50%+288.5,50%+91
+	zindex=7
+	
+touch
+    type=2
+    rect=50%-140.5,50%+244,155,427427
+    rect2=50%-282,50%-1,155,427427
+    rect3=50%-140.5,50%-243,155,427427
+    rect4=50%+142,50%+244,155,427427
+    rect5=50%+283,50%-1,155,427427
+    rect6=50%+142,50%-245,155,427427
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Copyright By 楼三笙
+#Modified By 男同头子夏缺缺
+#未经授权禁止提取图片素材，禁止二改！！

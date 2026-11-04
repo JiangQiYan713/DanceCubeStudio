@@ -1,0 +1,1165 @@
+{
+  "archive_sha256": "96a011435b2f2aef8a3f39541ed4965d486d608d7acab512239a1de90d714c86",
+  "archive_bytes": 2304670,
+  "files": [
+    {
+      "name": "10001.png",
+      "width": 1080,
+      "height": 1200,
+      "mode": "RGBA",
+      "sha256": "05f7cdeaec239d228ee4572dddbac52c8814e0497372a5cd293d9d3cb27d0630",
+      "bytes": 46440,
+      "alpha_bbox": [
+        0,
+        0,
+        1080,
+        1200
+      ],
+      "role": "六边形暗色背景/遮罩组件",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10002.png",
+      "width": 512,
+      "height": 512,
+      "mode": "RGBA",
+      "sha256": "b1ca7b17023ed6f4d5bfc17bdbf9dc399840cce452ce7eb1090bc1284f6b9973",
+      "bytes": 156733,
+      "alpha_bbox": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "role": "DANCE图标",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10003.png",
+      "width": 15,
+      "height": 15,
+      "mode": "RGBA",
+      "sha256": "a8541f1b415d5da717aedba5a4a0d65bf841cfb5be178485dc7d968bd703cc8d",
+      "bytes": 370,
+      "alpha_bbox": [
+        2,
+        2,
+        13,
+        13
+      ],
+      "role": "小尺寸定位/符号",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10004.png",
+      "width": 172,
+      "height": 172,
+      "mode": "RGBA",
+      "sha256": "04296f234e73ddf37a636b5eeb1285a44c64305ded9a2f9208c3592489153454",
+      "bytes": 18489,
+      "alpha_bbox": [
+        0,
+        0,
+        172,
+        172
+      ],
+      "role": "下载按钮图标",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10005.png",
+      "width": 180,
+      "height": 180,
+      "mode": "RGBA",
+      "sha256": "f1f92c4d27ac4ddbf3419f3a494e29b0341c4b46c72732e212a214ee743849d2",
+      "bytes": 9295,
+      "alpha_bbox": [
+        16,
+        69,
+        165,
+        110
+      ],
+      "role": "Catree标识",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10006.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "sha256": "f8eedd7c2ce805c6c2627716acefb47962f44a5a6ec014432cba0f449b68a354",
+      "bytes": 75927,
+      "alpha_bbox": [
+        33,
+        39,
+        225,
+        225
+      ],
+      "role": "红/蓝圆形打击光效帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10007.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "sha256": "5386d8645ea3ffb988cef7c6a8d900de0cee9742d69d27d5190423ae3ac0d87b",
+      "bytes": 77244,
+      "alpha_bbox": [
+        33,
+        36,
+        225,
+        224
+      ],
+      "role": "红/蓝圆形打击光效帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10008.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "sha256": "4175fedae343e40492d277c12efdcdcee6f94fd9e18b8fb580135171ee0a97d6",
+      "bytes": 76233,
+      "alpha_bbox": [
+        33,
+        36,
+        225,
+        225
+      ],
+      "role": "红/蓝圆形打击光效帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10009.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "sha256": "0fa7cf322c20aa71faf237f1b888716975f307afe464fe1febfd5510cc785c23",
+      "bytes": 76303,
+      "alpha_bbox": [
+        33,
+        36,
+        225,
+        225
+      ],
+      "role": "红/蓝圆形打击光效帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10010.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "sha256": "8339932ccf6de0742cfb6e0e1f971c1ed541a1eae93374d24c06fc40d2cde3b9",
+      "bytes": 74987,
+      "alpha_bbox": [
+        33,
+        39,
+        225,
+        225
+      ],
+      "role": "红/蓝圆形打击光效帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10011.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "sha256": "c33e2ff5d11461f00ebddc7800dd43ba8e94cf564e71dc29fe53bf478c21d369",
+      "bytes": 76461,
+      "alpha_bbox": [
+        33,
+        36,
+        225,
+        224
+      ],
+      "role": "红/蓝圆形打击光效帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10012.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "sha256": "7cb56993dfca8286b67554d2caeb2325ec216e192098f94f02f36e83620c584b",
+      "bytes": 76045,
+      "alpha_bbox": [
+        33,
+        36,
+        225,
+        225
+      ],
+      "role": "红/蓝圆形打击光效帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10013.png",
+      "width": 280,
+      "height": 280,
+      "mode": "RGBA",
+      "sha256": "5b60b5e421b0ccd54c34eb353c50a6056f497201157b6aef356c418dcdaf2f80",
+      "bytes": 12221,
+      "alpha_bbox": [
+        53,
+        35,
+        238,
+        219
+      ],
+      "role": "星形爆发/粒子打击帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10014.png",
+      "width": 280,
+      "height": 280,
+      "mode": "RGBA",
+      "sha256": "71b090e191664aa26d022e248c5b78d3a74675109f36a89e9b2f143b3b6c90ea",
+      "bytes": 26984,
+      "alpha_bbox": [
+        48,
+        34,
+        251,
+        223
+      ],
+      "role": "星形爆发/粒子打击帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10015.png",
+      "width": 280,
+      "height": 280,
+      "mode": "RGBA",
+      "sha256": "db3e77074490048125ddabd7ae514eee8d01039eb4436a6f7b77fa508ff76432",
+      "bytes": 50757,
+      "alpha_bbox": [
+        49,
+        34,
+        250,
+        235
+      ],
+      "role": "星形爆发/粒子打击帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10016.png",
+      "width": 280,
+      "height": 280,
+      "mode": "RGBA",
+      "sha256": "da1ca5d054bfb0dd6af7434ad9d04e7c0dce570616e74eb2646a7456d5b915b0",
+      "bytes": 94325,
+      "alpha_bbox": [
+        2,
+        1,
+        280,
+        280
+      ],
+      "role": "星形爆发/粒子打击帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10017.png",
+      "width": 280,
+      "height": 280,
+      "mode": "RGBA",
+      "sha256": "2515e0766e259a3dd05655f3bdcc8df11f10d6a04d70188896269ed0e99dfd5b",
+      "bytes": 86912,
+      "alpha_bbox": [
+        2,
+        1,
+        280,
+        280
+      ],
+      "role": "星形爆发/粒子打击帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10018.png",
+      "width": 280,
+      "height": 280,
+      "mode": "RGBA",
+      "sha256": "40f233aa62a61d81b9ce006fe2bc2b8cada6ece9adbf83d62b88a4daf06ad685",
+      "bytes": 74268,
+      "alpha_bbox": [
+        2,
+        13,
+        280,
+        269
+      ],
+      "role": "星形爆发/粒子打击帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10019.png",
+      "width": 280,
+      "height": 280,
+      "mode": "RGBA",
+      "sha256": "6d088ff468b46ae4ceb77425bb78e92b488445a606a5668bca6d7c788a45e995",
+      "bytes": 28241,
+      "alpha_bbox": [
+        69,
+        73,
+        212,
+        213
+      ],
+      "role": "星形爆发/粒子打击帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10020.png",
+      "width": 280,
+      "height": 280,
+      "mode": "RGBA",
+      "sha256": "70aa0c17dd4730a4d9a81b6704b5c6945034a43d2ceec483c4315d9140fdece1",
+      "bytes": 12923,
+      "alpha_bbox": [
+        91,
+        100,
+        184,
+        187
+      ],
+      "role": "星形爆发/粒子打击帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10021.png",
+      "width": 105,
+      "height": 256,
+      "mode": "RGBA",
+      "sha256": "84443f0850fb037137015111f25278e8dc61d746df85e3be40ea78d56d3487db",
+      "bytes": 37967,
+      "alpha_bbox": [
+        1,
+        1,
+        104,
+        255
+      ],
+      "role": "橙色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10022.png",
+      "width": 105,
+      "height": 254,
+      "mode": "RGBA",
+      "sha256": "837cfc7cc656b42693702ca4f33477de10ae8ed8cbb6861bea09eb9afaa9aa24",
+      "bytes": 35459,
+      "alpha_bbox": [
+        1,
+        2,
+        104,
+        253
+      ],
+      "role": "橙色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10023.png",
+      "width": 105,
+      "height": 230,
+      "mode": "RGBA",
+      "sha256": "b295fe0d4a7e21148534e890b1121bb1e2e08cd777cc1e5f2494cdf4a0930877",
+      "bytes": 33178,
+      "alpha_bbox": [
+        1,
+        2,
+        104,
+        229
+      ],
+      "role": "橙色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10024.png",
+      "width": 105,
+      "height": 192,
+      "mode": "RGBA",
+      "sha256": "055e24df774de03c7009a50963e641473aa2519e51ee0e2ec62e7b74cf1d0482",
+      "bytes": 28560,
+      "alpha_bbox": [
+        1,
+        1,
+        104,
+        191
+      ],
+      "role": "橙色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10025.png",
+      "width": 105,
+      "height": 154,
+      "mode": "RGBA",
+      "sha256": "3b9a21275b5856e198b9efd00df192b86e65b8f5339b40774d1d2308f1ec2fee",
+      "bytes": 22699,
+      "alpha_bbox": [
+        1,
+        2,
+        104,
+        154
+      ],
+      "role": "橙色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10026.png",
+      "width": 105,
+      "height": 110,
+      "mode": "RGBA",
+      "sha256": "1242f1db9700616c757ddc7192af8b91a39107af8a93894135e8a84043553360",
+      "bytes": 16564,
+      "alpha_bbox": [
+        2,
+        2,
+        104,
+        110
+      ],
+      "role": "橙色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10027.png",
+      "width": 105,
+      "height": 70,
+      "mode": "RGBA",
+      "sha256": "cea0b84c6a0f79d91d247017be8eaa279e8e3bc068734a1a7577d7f2360a0207",
+      "bytes": 8841,
+      "alpha_bbox": [
+        2,
+        1,
+        104,
+        70
+      ],
+      "role": "橙色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10028.png",
+      "width": 95,
+      "height": 14,
+      "mode": "RGBA",
+      "sha256": "621f75af0c4f1aff5555c126900f4ae35a5e0a6bac40d81bafe877d224afcfbb",
+      "bytes": 481,
+      "alpha_bbox": [
+        3,
+        3,
+        71,
+        13
+      ],
+      "role": "橙色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10029.png",
+      "width": 105,
+      "height": 256,
+      "mode": "RGBA",
+      "sha256": "4b5de833948283b2e89f679893ab570938f5599c510dc34ed22e77bb4ea843bb",
+      "bytes": 37231,
+      "alpha_bbox": [
+        1,
+        1,
+        104,
+        255
+      ],
+      "role": "青色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10030.png",
+      "width": 105,
+      "height": 254,
+      "mode": "RGBA",
+      "sha256": "481fd2933d071a7c0b95263dbb0790b976026382cf839dab17644a598c158fbb",
+      "bytes": 35412,
+      "alpha_bbox": [
+        1,
+        2,
+        104,
+        253
+      ],
+      "role": "青色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10031.png",
+      "width": 105,
+      "height": 230,
+      "mode": "RGBA",
+      "sha256": "029f08ac5d644caee96ad706a8e4c9fd5e8064f8a208871800ae35467574a74a",
+      "bytes": 32770,
+      "alpha_bbox": [
+        1,
+        2,
+        104,
+        229
+      ],
+      "role": "青色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10032.png",
+      "width": 105,
+      "height": 192,
+      "mode": "RGBA",
+      "sha256": "f4babf3894bb83be433fcc5ab4696078deab0b2d544c18f2a2c76ed1b95dc055",
+      "bytes": 27916,
+      "alpha_bbox": [
+        1,
+        1,
+        104,
+        191
+      ],
+      "role": "青色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10033.png",
+      "width": 105,
+      "height": 154,
+      "mode": "RGBA",
+      "sha256": "4bacd02f0fc145de789df9136489c2075c1ab2d63f3bc752782464efc0bc1aec",
+      "bytes": 22368,
+      "alpha_bbox": [
+        1,
+        2,
+        104,
+        154
+      ],
+      "role": "青色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10034.png",
+      "width": 105,
+      "height": 110,
+      "mode": "RGBA",
+      "sha256": "ba37ef1e104ec01ef39789a4b396d85961b3c545493158fc1979474c25f3c6de",
+      "bytes": 16159,
+      "alpha_bbox": [
+        2,
+        2,
+        104,
+        110
+      ],
+      "role": "青色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10035.png",
+      "width": 105,
+      "height": 70,
+      "mode": "RGBA",
+      "sha256": "f3dc46a1affaf1005af7bb73c43d9564402530fd694070485e1f8cc352192087",
+      "bytes": 8824,
+      "alpha_bbox": [
+        2,
+        1,
+        104,
+        70
+      ],
+      "role": "青色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10036.png",
+      "width": 95,
+      "height": 14,
+      "mode": "RGBA",
+      "sha256": "1e19a9bb98aff9a4cc5c23f48319998ae495860dd922ddc56dad07aab6148016",
+      "bytes": 518,
+      "alpha_bbox": [
+        1,
+        3,
+        93,
+        13
+      ],
+      "role": "青色扇形/弧形动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10037.png",
+      "width": 800,
+      "height": 100,
+      "mode": "RGBA",
+      "sha256": "5b5063acfa5e597c51474e95e3c0729ed2983cd4cae85003e56abd1dd57bd529",
+      "bytes": 26163,
+      "alpha_bbox": [
+        10,
+        16,
+        648,
+        50
+      ],
+      "role": "数字/百分号字形横条",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10038.png",
+      "width": 68,
+      "height": 28,
+      "mode": "RGBA",
+      "sha256": "ab19d8fa82322199e01f5180fd4670d75669102905ddf1629fc2928362fc23d7",
+      "bytes": 3661,
+      "alpha_bbox": [
+        1,
+        5,
+        66,
+        24
+      ],
+      "role": "COMBO文字",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10039.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "sha256": "41d35aee3b6213785cfa954183655560701d5de18917ca13e8ec8a4e675c8670",
+      "bytes": 34699,
+      "alpha_bbox": [
+        1,
+        1,
+        251,
+        188
+      ],
+      "role": "字母/数字字体图集",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10040.png",
+      "width": 35,
+      "height": 23,
+      "mode": "RGBA",
+      "sha256": "67f47224be56c3a29df3eaaf8e56dca3fb1b6bb2fdd4b22723bb9271785e382a",
+      "bytes": 2059,
+      "alpha_bbox": [
+        0,
+        0,
+        35,
+        23
+      ],
+      "role": "小型发光星",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10041.png",
+      "width": 41,
+      "height": 284,
+      "mode": "RGBA",
+      "sha256": "22826088baa2e1299b05fed8908e3eeffa5ac266f3890bdb6d31074eb6bdd239",
+      "bytes": 14450,
+      "alpha_bbox": [
+        0,
+        0,
+        41,
+        284
+      ],
+      "role": "竖向彩色发光条",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10042.png",
+      "width": 41,
+      "height": 284,
+      "mode": "RGBA",
+      "sha256": "8b7e460c1984ae14126c66cf7b6d7b4efe613815bd7936edb53dd3d15fc6adc7",
+      "bytes": 10272,
+      "alpha_bbox": [
+        0,
+        0,
+        41,
+        284
+      ],
+      "role": "竖向彩色发光条",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10043.png",
+      "width": 41,
+      "height": 284,
+      "mode": "RGBA",
+      "sha256": "ac7d753a4bb2930dfff42cce0319df92f947d63a7d367525e61dec88d10a1096",
+      "bytes": 12846,
+      "alpha_bbox": [
+        0,
+        0,
+        41,
+        284
+      ],
+      "role": "竖向彩色发光条",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10044.png",
+      "width": 17,
+      "height": 260,
+      "mode": "RGBA",
+      "sha256": "104cf06c884c659539180549bcfa4544ad2b5358647c13e59e4928dfc21ae208",
+      "bytes": 4239,
+      "alpha_bbox": [
+        0,
+        0,
+        17,
+        260
+      ],
+      "role": "长条/条纹组件，不能认定为官方滑条指示器",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10045.png",
+      "width": 106,
+      "height": 28,
+      "mode": "RGBA",
+      "sha256": "72667bde00760837f3e67ba22ba489be3d8d758856bbc481f68c457d94876582",
+      "bytes": 4556,
+      "alpha_bbox": [
+        2,
+        1,
+        105,
+        26
+      ],
+      "role": "Perfect判定横幅",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10046.png",
+      "width": 96,
+      "height": 520,
+      "mode": "RGBA",
+      "sha256": "bb88a21b378e66ec3d83a5c8f1655582fea137731e5bd30b0ca5420a1e00765e",
+      "bytes": 42987,
+      "alpha_bbox": [
+        0,
+        0,
+        96,
+        520
+      ],
+      "role": "长竖向发光边线",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10047.png",
+      "width": 96,
+      "height": 520,
+      "mode": "RGBA",
+      "sha256": "7d4ba4a81fe6d124c7a1c22488d9be3773d4f47537d0c2a44c2172d01e667045",
+      "bytes": 42831,
+      "alpha_bbox": [
+        0,
+        0,
+        96,
+        520
+      ],
+      "role": "长竖向发光边线",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10048.png",
+      "width": 1000,
+      "height": 80,
+      "mode": "RGBA",
+      "sha256": "cd0d44f9737b8ff20b07d0729f97c7ed7224618151e9abf84657b6adf5bccfd3",
+      "bytes": 53654,
+      "alpha_bbox": [
+        8,
+        9,
+        1000,
+        72
+      ],
+      "role": "横向发光条",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10049.png",
+      "width": 96,
+      "height": 26,
+      "mode": "RGBA",
+      "sha256": "843bfc09e28a1974c8d5f375a9d95a8f8ff566e0d3b2adf93ef670f1facc11a6",
+      "bytes": 5907,
+      "alpha_bbox": [
+        1,
+        1,
+        96,
+        26
+      ],
+      "role": "PERFECT判定文字",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10050.png",
+      "width": 680,
+      "height": 152,
+      "mode": "RGBA",
+      "sha256": "1245ac9ac2cc7aab0557e55aea4a42e410570ded96f97d9acd7a0f8f72c025b1",
+      "bytes": 25341,
+      "alpha_bbox": [
+        21,
+        48,
+        660,
+        107
+      ],
+      "role": "青色横向闪光/星芒动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10051.png",
+      "width": 680,
+      "height": 152,
+      "mode": "RGBA",
+      "sha256": "7e7a6b505dcde9b2f264c6d375092a63c5b9de22ed2a7d70b0a54b53ea9e95d9",
+      "bytes": 36438,
+      "alpha_bbox": [
+        39,
+        33,
+        641,
+        122
+      ],
+      "role": "青色横向闪光/星芒动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10052.png",
+      "width": 680,
+      "height": 152,
+      "mode": "RGBA",
+      "sha256": "74a9de3b8b912ce983277d9156302fdf3a11085dfed6fda1360fc2ecdaf912c0",
+      "bytes": 57304,
+      "alpha_bbox": [
+        73,
+        24,
+        606,
+        132
+      ],
+      "role": "青色横向闪光/星芒动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10053.png",
+      "width": 680,
+      "height": 152,
+      "mode": "RGBA",
+      "sha256": "eade3293bebd323257adcc4664fe79f43be45a8bfaf51a26262bb49cb0bd7dc0",
+      "bytes": 73926,
+      "alpha_bbox": [
+        108,
+        14,
+        573,
+        141
+      ],
+      "role": "青色横向闪光/星芒动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10054.png",
+      "width": 680,
+      "height": 152,
+      "mode": "RGBA",
+      "sha256": "5074af3939acefb431759939d274ba57347d65537510e97cdc59c90a8d92b524",
+      "bytes": 70512,
+      "alpha_bbox": [
+        140,
+        4,
+        540,
+        152
+      ],
+      "role": "青色横向闪光/星芒动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10055.png",
+      "width": 680,
+      "height": 152,
+      "mode": "RGBA",
+      "sha256": "543b2afbdc35333cb533d20a0569195a4172a64ebc75a409a863eff04cf0da50",
+      "bytes": 53624,
+      "alpha_bbox": [
+        168,
+        9,
+        504,
+        147
+      ],
+      "role": "青色横向闪光/星芒动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10056.png",
+      "width": 680,
+      "height": 152,
+      "mode": "RGBA",
+      "sha256": "9d6f75a1e76c399843c4a2ca4cc167977e045a7ca049f24212b69a9cd2b30c25",
+      "bytes": 37439,
+      "alpha_bbox": [
+        218,
+        0,
+        462,
+        152
+      ],
+      "role": "青色横向闪光/星芒动画帧",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10057.png",
+      "width": 233,
+      "height": 75,
+      "mode": "RGBA",
+      "sha256": "770ca54e107ef2ec0fcefccc96a9c0c3698f7c1e3fee01166289bbb3b1ad6900",
+      "bytes": 8756,
+      "alpha_bbox": [
+        0,
+        12,
+        233,
+        65
+      ],
+      "role": "品红内圈长条主体，近等于官方changand",
+      "confidence_basis": "alpha-and-display-pixel-comparison"
+    },
+    {
+      "name": "10058.png",
+      "width": 233,
+      "height": 75,
+      "mode": "RGBA",
+      "sha256": "bccf406e2f9a768a584633311c541073b20a02c891854508bb198ea7960a190a",
+      "bytes": 8852,
+      "alpha_bbox": [
+        0,
+        12,
+        233,
+        65
+      ],
+      "role": "绿色内圈长条主体，近等于官方changanc",
+      "confidence_basis": "alpha-and-display-pixel-comparison"
+    },
+    {
+      "name": "10059.ico",
+      "width": 64,
+      "height": 64,
+      "mode": "RGBA",
+      "sha256": "6269ae3f37cee7cfdd503dcc7f61a0c46b8f7e66f0208250261f909caf8aa16c",
+      "bytes": 22382,
+      "alpha_bbox": [
+        5,
+        24,
+        59,
+        40
+      ],
+      "role": "Catree图标",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10061.png",
+      "width": 504,
+      "height": 576,
+      "mode": "RGBA",
+      "sha256": "f7a82520641de1cb8bc59b6c4280c4409cc533c4cb49027871c0fb52225d1a86",
+      "bytes": 65337,
+      "alpha_bbox": [
+        2,
+        2,
+        503,
+        575
+      ],
+      "role": "半侧紫色六边形框线组件",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10062.png",
+      "width": 58,
+      "height": 58,
+      "mode": "RGBA",
+      "sha256": "e428ce4754d0b97c0e330cb9ae663b6f649b0701f9cc2340db9a30869d015858",
+      "bytes": 4525,
+      "alpha_bbox": [
+        0,
+        0,
+        58,
+        58
+      ],
+      "role": "58x58发光圆点",
+      "confidence_basis": "visual"
+    },
+    {
+      "name": "10063.png",
+      "width": 60,
+      "height": 60,
+      "mode": "RGBA",
+      "sha256": "5b6b1057ecfa6d427c7293d4484b54b1c760577466d4a304da3f5bd09540ba65",
+      "bytes": 8555,
+      "alpha_bbox": [
+        0,
+        0,
+        60,
+        60
+      ],
+      "role": "经典单点蓝色光标，近等于官方cursor1",
+      "confidence_basis": "alpha-and-display-pixel-comparison"
+    },
+    {
+      "name": "10064.png",
+      "width": 60,
+      "height": 60,
+      "mode": "RGBA",
+      "sha256": "047a282c5889f9481e2dbc01c426c9d94cb5d02c5d6af14477e291ec029135f4",
+      "bytes": 8555,
+      "alpha_bbox": [
+        0,
+        0,
+        60,
+        60
+      ],
+      "role": "经典多押橙色光标，近等于官方cursor2",
+      "confidence_basis": "alpha-and-display-pixel-comparison"
+    },
+    {
+      "name": "10065.png",
+      "width": 110,
+      "height": 110,
+      "mode": "RGBA",
+      "sha256": "6cb9f35d5ab731c66fcdecffe0eb4cb9d073750285e8cb9f2567c0d85ca54070",
+      "bytes": 21704,
+      "alpha_bbox": [
+        0,
+        5,
+        110,
+        106
+      ],
+      "role": "110x110橙色六边形光标，与官方60x60 cursor6同族但不是同分辨率原图",
+      "confidence_basis": "visual-dimension"
+    },
+    {
+      "name": "10066.png",
+      "width": 110,
+      "height": 110,
+      "mode": "RGBA",
+      "sha256": "5aa9c37eb21607ac27e28d2585171ba523a534e5eeb72fc5d525f278756901dd",
+      "bytes": 21124,
+      "alpha_bbox": [
+        1,
+        7,
+        110,
+        106
+      ],
+      "role": "110x110蓝色六边形光标，与官方60x60 cursor5同族但不是同分辨率原图",
+      "confidence_basis": "visual-dimension"
+    },
+    {
+      "name": "10067.png",
+      "width": 60,
+      "height": 60,
+      "mode": "RGBA",
+      "sha256": "cc306a9c46c7af9d722c3b9042db1cd7c332becc753c43b6427dc788008f507b",
+      "bytes": 7790,
+      "alpha_bbox": [
+        0,
+        3,
+        60,
+        58
+      ],
+      "role": "经典多押长条头尾，近等于官方cursor6",
+      "confidence_basis": "alpha-and-display-pixel-comparison"
+    },
+    {
+      "name": "10068.png",
+      "width": 60,
+      "height": 60,
+      "mode": "RGBA",
+      "sha256": "675cc04f054500ae0d13fbcb5d201b82edeb04003b706597ecf479b399ef6233",
+      "bytes": 7362,
+      "alpha_bbox": [
+        4,
+        0,
+        57,
+        60
+      ],
+      "role": "内圈单押长条头尾，近等于官方cursor7",
+      "confidence_basis": "alpha-and-display-pixel-comparison"
+    },
+    {
+      "name": "10069.png",
+      "width": 60,
+      "height": 60,
+      "mode": "RGBA",
+      "sha256": "d7e718334758d9d8bd14b88aeda5cd0c4b5e9082c08ad865c566e0bd6e111944",
+      "bytes": 7393,
+      "alpha_bbox": [
+        3,
+        0,
+        58,
+        60
+      ],
+      "role": "内圈多押长条头尾，近等于官方cursor8",
+      "confidence_basis": "alpha-and-display-pixel-comparison"
+    },
+    {
+      "name": "10070.png",
+      "width": 75,
+      "height": 233,
+      "mode": "RGBA",
+      "sha256": "d23502052b5e7e2dfbd059451e99ce1767ee78c044ca6414238953313f2b28c2",
+      "bytes": 7724,
+      "alpha_bbox": [
+        7,
+        0,
+        65,
+        233
+      ],
+      "role": "经典单押长条主体；逆时针旋转90度近等于官方changana",
+      "confidence_basis": "rotated-alpha-and-display-pixel-comparison"
+    },
+    {
+      "name": "10071.png",
+      "width": 75,
+      "height": 233,
+      "mode": "RGBA",
+      "sha256": "51bd3d9ed76f1c9ad3a17e9b6637136ede2539d6faaafca1abc7e60ee71503c6",
+      "bytes": 7834,
+      "alpha_bbox": [
+        7,
+        0,
+        65,
+        233
+      ],
+      "role": "经典多押长条主体；逆时针旋转90度近等于官方changanb",
+      "confidence_basis": "rotated-alpha-and-display-pixel-comparison"
+    }
+  ],
+  "summary": {
+    "png_count": 69,
+    "ico_count": 1,
+    "contains_scripts": false,
+    "contains_atlas_metadata": false,
+    "contains_mui": false,
+    "byte_identical_to_existing_official_sprites": 0,
+    "near_matching_official_count": 9,
+    "missing_from_identifiable_official_set": [
+      "cursor3.png (inner single circular green)",
+      "cursor4.png (inner multi circular magenta)",
+      "long.png (slide pointer)",
+      "full show outer/inner UI frame asset/configuration"
+    ],
+    "unconfirmed_variant": [
+      "cursor5.png exact60x60 missing; 10066.png is110x110 same-family version"
+    ],
+    "numbering_note": "10060 is absent but numeric resource IDs are not an official complete manifest; no missing-file conclusion solely from numbering."
+  },
+  "comparison_note": "Near matches have exactly equal alpha; at alpha>=128, RGB deltas are at most one 8-bit level. PNG bytes and hashes differ. Vertical body uploads require a 90deg CCW rotation for comparison. They are not byte-identical backups and should not silently overwrite current verified official PNGs.",
+  "official_speed": {
+    "source_cache": "research34/show-component.reference.js",
+    "source_url": "https://dancewebdemo.shenghuayule.com/dance/static/js/pages-demoShow.4d657b3b.js",
+    "evidence_lines": {
+      "all_positions_share_getShiftingTime": "204-210",
+      "no_sv_spawn_time": "260-262",
+      "same_distance_progress_outer_inner": "127-154"
+    },
+    "same_appearance_to_hit_duration": true,
+    "same_moving_distance": true,
+    "outer_start_radius": "w",
+    "outer_end_radius": "R",
+    "inner_start_radius": "A",
+    "inner_end_radius": "A+w-R",
+    "moving_distance": "R-w (both)",
+    "growth_phase_fraction": "w/R (both)",
+    "proposed_website_speed_relation": "T = 2.5 / speed; rate = speed / 2.5; use same T and growth phase for inner and outer. SV remains independently integrated.",
+    "scope": "Confirmed official app web preview, not machine firmware."
+  }
+}

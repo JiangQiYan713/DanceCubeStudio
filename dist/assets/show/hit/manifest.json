@@ -1,0 +1,54 @@
+{
+  "source": "maintainer-supplied machine-classic-preview-original.zip",
+  "files": [
+    {
+      "filename": "10050.png",
+      "width": 680,
+      "height": 152,
+      "sha256": "1245ac9ac2cc7aab0557e55aea4a42e410570ded96f97d9acd7a0f8f72c025b1",
+      "archive_path": "机台经典预览素材/10050.png"
+    },
+    {
+      "filename": "10051.png",
+      "width": 680,
+      "height": 152,
+      "sha256": "7e7a6b505dcde9b2f264c6d375092a63c5b9de22ed2a7d70b0a54b53ea9e95d9",
+      "archive_path": "机台经典预览素材/10051.png"
+    },
+    {
+      "filename": "10052.png",
+      "width": 680,
+      "height": 152,
+      "sha256": "74a9de3b8b912ce983277d9156302fdf3a11085dfed6fda1360fc2ecdaf912c0",
+      "archive_path": "机台经典预览素材/10052.png"
+    },
+    {
+      "filename": "10053.png",
+      "width": 680,
+      "height": 152,
+      "sha256": "eade3293bebd323257adcc4664fe79f43be45a8bfaf51a26262bb49cb0bd7dc0",
+      "archive_path": "机台经典预览素材/10053.png"
+    },
+    {
+      "filename": "10054.png",
+      "width": 680,
+      "height": 152,
+      "sha256": "5074af3939acefb431759939d274ba57347d65537510e97cdc59c90a8d92b524",
+      "archive_path": "机台经典预览素材/10054.png"
+    },
+    {
+      "filename": "10055.png",
+      "width": 680,
+      "height": 152,
+      "sha256": "543b2afbdc35333cb533d20a0569195a4172a64ebc75a409a863eff04cf0da50",
+      "archive_path": "机台经典预览素材/10055.png"
+    },
+    {
+      "filename": "10056.png",
+      "width": 680,
+      "height": 152,
+      "sha256": "9d6f75a1e76c399843c4a2ca4cc167977e045a7ca049f24212b69a9cd2b30c25",
+      "archive_path": "机台经典预览素材/10056.png"
+    }
+  ]
+}
