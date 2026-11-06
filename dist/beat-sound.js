@@ -1,7 +1,7 @@
 /* Beat-head clicks on the Web Audio clock. No audio or chart data leaves this browser. */
 'use strict';
 (function(root){
-const C=root.DCCore,TYPES=[['clear','清脆'],['electric','电波'],['dull','沉闷'],['moderate','适中']],COUNT_IN=[-2,-1.75,-1.5,-1.25];
+const C=root.DCCore,TYPES=[['clear','清脆'],['electric','电波'],['dull','沉闷'],['moderate','适中']],COUNT_IN=[-8,-7,-6,-5];
 function events(chart){const beats=[...COUNT_IN,...root.DCUnits.records(chart).map(n=>n.beat)].sort((a,b)=>a-b),out=[];for(const beat of beats)if(!out.length||Math.abs(beat-out.at(-1).beat)>1e-8)out.push({beat,time:C.beatToTime(chart,beat)});return out;}
 function onset(buffer){let peak=0;const width=Math.max(1,Math.round(buffer.sampleRate*.001)),energy=[];for(let i=0;i<buffer.length;i+=width){let sum=0,count=0;for(let ch=0;ch<buffer.numberOfChannels;ch++){const a=buffer.getChannelData(ch);for(let j=i;j<Math.min(i+width,a.length);j++){sum+=a[j]*a[j];count++;}}const rms=Math.sqrt(sum/Math.max(1,count));energy.push(rms);peak=Math.max(peak,rms);}if(peak<1e-5)throw Error('音效接近静音，请换一个文件');const index=energy.findIndex((v,i)=>v>=peak*.08&&(energy[i+1]??v)>=peak*.04);return Math.round(Math.max(0,index)*width/buffer.sampleRate*1000);}
 function delay(p){return(p.type==='custom'?Number(p.delay1Ms)||0:0)+(Number(p.delay2Ms)||0);}

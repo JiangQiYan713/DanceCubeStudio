@@ -10,7 +10,7 @@
     "follow": true,
     "rate": 1,
     "noteSpeed": 8,
-    "previewSpeedModel": "flight-2.5",
+    "previewSpeedModel": "flight-3",
     "separateSlides": false,
     "showUseBackground": false,
     "brightness": 35,

@@ -15,6 +15,7 @@
 | core.js | MC 与拍数组、BPM 积分、校验、镜像、ZIP 读写 |
 | project.js / local-library.js | 多歌曲别名、迁移、资源隔离、删除事务与缓存回收 |
 | show.js / show-editor.js | 秀谱规范、TXT / ZIP、12 / 18 轨编辑、滑条堆叠与降级备份 |
+| play-core.js / play-lab.js / play.css | 经典 6K 试玩时间判定、触控输入并集、局部物量、全屏加载、结果图与明细 |
 | units.js | 固定 0.2 秒物量索引，实时 Combo、总物量及大整数 |
 | beat-sound.js | 四种本地音效、上传起音分析、Web Audio 定时与取消 |
 | analysis-worker.js / timing.js | FFT、RMS、频带、频谱通量、BPM / 相位及分段估计 |
@@ -55,7 +56,7 @@ MC 拍数组 `[integer,numerator,denominator]` 分母为正，输入要求分子
 ```
 rawTime(b) = BPMList 分段积分，每拍秒数 60 / BPM
 songTime(b) = rawTime(b) - rawTime(audioBeat) - offset / 1000
-flight = 2.5 / noteSpeed
+flight = 3 / noteSpeed
 previewDistance = 基础速度 × Effect.scroll 对音乐时间的积分
 ```
 
@@ -63,11 +64,11 @@ previewDistance = 基础速度 × Effect.scroll 对音乐时间的积分
 
 ## 预卷与编辑保护
 
-最小可定位拍数为 -8。`minTime()` 使用当前 BPM / Offset 映射，不能用固定 -4 秒替代。最小视图 bottom 额外减去预览线以下的可视拍数，使预览线能在用户设定高度抵达 -8。网格从 max(-8,visibleBottom) 绘制；0 到 -8 区域用灰色 alpha 0.2 蒙版，预览线最后绘制在蒙版之上。
+最小可定位拍数为 -16。`minTime()` 使用当前 BPM / Offset 映射，不能用固定 -4 秒替代。最小视图 bottom 额外减去预览线以下的可视拍数，使预览线能在用户设定高度抵达 -16。网格从 max(-16,visibleBottom) 绘制；0 到 -16 区域用灰色 alpha 0.2 蒙版，预览线最后绘制在蒙版之上。
 
 `gridPoint / DCShowEdit.point` 同时返回 rawBeat 与吸附 beat。写入、擦除与右键操作先检查 rawBeat；负数 -0.01 即使吸附到 0 也不得修改 0 拍音符。长条 / 滑条拖画任一端 rawBeat < 0 时取消整次写入；复制、配方与属性也必须通过非负规范检查。框选与预览导航不受写入限制。
 
-`seek` 可定位 minTime 至总时长。restart 暂停、回到 -8 再播放；stop 回到 -8 并暂停。音频尚未到 0 时，BufferSource 延后启动，不能用立即 `start(0,max(0,position))` 提前播放音乐。
+`seek` 可定位 minTime 至总时长。restart 暂停、回到 -16 再播放；stop 回到 -16 并暂停。音频尚未到 0 时，BufferSource 延后启动，不能用立即 `start(0,max(0,position))` 提前播放音乐。
 
 ## 音频时钟与节拍音
 
@@ -82,7 +83,7 @@ totalDelayMs = delay1Ms + delay2Ms
 
 epoch 留出至少 40 ms 安排时间；正补偿较大时相应扩大提前量，使起始位置的 click 也能提前安排。等待 epoch 时视觉位置保持起点。节拍音不改变播放速率，因此起音延迟保持现实毫秒，不随音乐 rate 改变。
 
-`DCBeatSound.events` 合并四个预卷拍 -2、-1.75、-1.5、-1.25 与所有非假键音符头部，按拍去重。slides 用整根链头，续段、尾部和物量 tick 不生成音效。音效与 grid 时间一致，不读取图片包围盒、消失距离或像素偏移。
+`DCBeatSound.events` 合并四个预卷拍 -8、-7、-6、-5 与所有非假键音符头部，按拍去重。slides 用整根链头，续段、尾部和物量 tick 不生成音效。音效与 grid 时间一致，不读取图片包围盒、消失距离或像素偏移。
 
 Player 使用 25 ms 定时器向前安排 150 ms 的 Web Audio BufferSource；不以 requestAnimationFrame 决定声音触发。若线程迟到超过容差，跳过过期声音，避免集中补响。pause、seek、切歌与重新播放必须 stop 定时器和全部已调度 voice，包括尚未开始的节点。音乐源同样支持取消未来启动。
 
@@ -137,7 +138,7 @@ TXT 算法参考用户提供的 JiangQiYan713 MC2TXT，测试参考代码独立�
 
 ## 预览、皮肤与性能
 
-PreviewIndex 按滚动积分排序，二分查找可见候选，并合并活跃长条，考虑区间全部 Effect 节点。预加载以 250 ms 桶存候选，支持负时间桶，范围覆盖 -8 预卷。谱面 / 速度变更递增 generation 取消旧任务；全曲或线前后 10 秒分别预热索引、候选与皮肤。
+PreviewIndex 按滚动积分排序，二分查找可见候选，并合并活跃长条，考虑区间全部 Effect 节点。预加载以 250 ms 桶存候选，支持负时间桶，范围覆盖 -16 预卷。谱面 / 速度变更递增 generation 取消旧任务；全曲或线前后 10 秒分别预热索引、候选与皮肤。
 
 目标 FPS 仅 60 / 120，默认 120；历史 144 规范为 120。requestAnimationFrame 前台采样用于设备限制，不把采样值当硬件能力保证。无高刷新能力时禁用预加载；音效仍在 AudioContext 时钟独立调度。
 
@@ -151,7 +152,7 @@ DCSettings.normalize 只接受有限数值与白名单枚举，颜色支持 #RGB
 
 默认设置从 assets/web-defaults.json 读取后规范化。本地背景 web-background、网页光标 web-cursor 与节拍音 web-beatSound 独立于歌曲。配置 dc-web-settings-1 只导出允许键，mediaRefs 为 name / MIME / size / CRC32；可选 base64 嵌入。导入先校验、准备媒体，再原子持久化并应用，失败回滚原状态 / 媒体；缺失光标回退当前皮肤，缺失音效回退适中并提示，缺失活动本地背景提示补文件。
 
-默认网页壁纸用随站副本并禁网隔离；外部网页背景沙箱显示，不注入账号数据。恢复网页默认不清理歌曲、模板、账号；全部重置清空相应 IndexedDB 并退出本机登录。设置 JSON 永不包含凭据。
+默认网页壁纸由客户端直接加载外部 URL，不携带本地副本；外部网页背景沙箱显示，不注入账号数据。恢复网页默认不清理歌曲、模板、账号；全部重置清空相应 IndexedDB 并退出本机登录。设置 JSON 永不包含凭据。
 
 ## 账号、商店与资源边界
 
@@ -191,3 +192,46 @@ node tests/settings40.cjs
 其余 test 文件的历史编号是文件标识，不代表使用过时的产品规则；相关断言须跟随固定 0.2 秒规则。完整运行器见 docs/testing.md。DOM / 模拟音频时钟可以证明调度与写入保护，不能测量实际扬声器延迟、真实屏幕 FPS、官方服务可用性或机台判定。
 
 保持既有静态托管 manifest 和访问范围；源仓库同步、归档与部署需匹配同一 commit。GitHub Actions 只在维护者选定的仓库运行，v* 标签生成 Release，手动构建只出产物。安装器不包含 Git 凭据或账号缓存，详见 installer/README.md 与 SOURCE-NOTICE.md。真实 Windows、Malody、舞立方机台与账号写入须单独验收。
+
+
+## 5.0.1 REC 本地视频转换
+
+rec-video-meta.js 以 File 切片解析 MP4 moov / vide mdhd / stts，moov 上限 32 MB；提取帧率、帧数、时长与 VFR 提示，失败时尝试呈现时间估计，可覆盖为 10～120 FPS。顺序处理在 seeked 解码就绪后立即取图，避开不可见视频绘制回调的节流；源帧内四分之一位置避开浮点边界，名义时间额外减 8 分并封顶 85 分。浏览器 seek 与 VFR 不保证精确源帧。
+
+rec-core.js 保留几何、模板、分轨跟踪与到线回归；rec-robust.js 增加全片平均背景、蓝色／暖色／中性径向轮廓、残影稳定位置、长条推断、十音符流速均值与节奏先验。允许两帧有效运动证据，仍要求向外位移与到线覆盖。连续主体后同轨蓝色头可推断为尾，头尾封顶 59 分待审。rec-worker.js 串行扫描 RPC，coarse 返回识别当帧的 48px 截图；每类保留最佳六个临时候选，避免再次 seek 时图像错位。
+
+rec-lab.js 保留独立模板 bank，以类型／轨道／源帧去重，每类最多四个；换视频、关闭或显式移除才清理，重匹配与切换时刻不清空。默认参考和全部确认样本共同参与，适配颜色／明暗，保留参考透明掩膜与形状。只保留平均背景、当前帧、轨迹短历史和有限截图，不缓存整段帧。
+
+模板后用宽速度范围寻找十个有效头部，中位数 / MAD 排除离群值，平均 1/速度得到归一化运动时间；等效流速=3/均值。最终以此作先验。BPMList 使用音频秒数节点，从人工确认 firstAudio 重起 beat 0，Offset=-firstAudio×1000；首视频头部为 0 拍，一源帧内跨轨头部合押。
+
+applyRhythm 在 min(55ms,1.5/FPS) 内优先考虑 1/2、1/4、1/8；少见分拍加先验代价，密集或 BPM<90 放宽 1/16。保留 rawVideoTime/rawBeat/rawEnd/snapDivision/snapErrorMs，可恢复原始时刻；同轨同拍候选合并且降分。chart.rec 还保留 FPS 元信息、测速十样本、模板类型、几何、解码数、时间模式与拒绝／未配尾／推断长条计数。
+
+仅完成识别后才事务写入歌曲与新难度；原难度和音频不覆盖。视频不进入会话或导出。MC 的 chart/note extra.dc_rec 保留证据，TXT 不包含。置信度<60 且未复核时 finalize 拒绝去标；校准支持撤销。
+
+rec501.cjs、rec501-video.cjs、rec50.cjs、rec50-vision.cjs 和 app50.cjs 覆盖新增和原有行为。另以 Kerberos 实拍全片作离线回归、实拍短片段作网页端到端检查。未逐音符标注真值，输出数量不能充当准确率／召回率。媒体和中间结果不进源码或部署。
+
+## 谱面试玩实验室（6.1）
+
+`DCPlayLab.open(hooks)` 从歌曲库取只读经典难度快照；`media(songId, chart)` 按各歌曲 assetPrefix 与谱面相对目录查找音频 / 曲绘。选择阶段本地解码音频以获取准确时长，开始阶段复用 AudioBuffer，预热当前皮肤与判定贴图并建立可视索引。资源不上传，不添加新的 IndexedDB / localStorage 字段。手谱转换入口标注“开发中…”，已有 REC 编辑 / 校准流程保留。
+
+`DCPlayCore.prepare` 使用 core 的 BPMList / audioBeat / offset 映射音符音乐秒数。全曲覆盖音频及实际谱面；练习区间采用半开区间，长条先取交集，物量为 1 + floor(交集秒数 / .2 + 数值容差)，假键为零。maxScore 限制为可安全精确表示的整数。Engine 持有独立判定状态，禁止写回源 chart。
+
+单点上界严格小于：默认 [40,60,80,100]、专业 [20,20,40,60]，前两档均 Perfect / 100，Great / 86、Good / 50、Miss / 0。专业的重复 20 表示外档为空；自定义必须为 1～99 的四个严格递增整数。触发只消耗同轨最早的未判定真实单点，±100ms 之外不影响；未操作到线 +100ms 固定过期。浮点比较仅使用小于微秒级的容差处理整数毫秒边界。
+
+长条覆盖累计窗口为 [head − .1, tail + .1]，练习时不越过区间开始；以原长条持续秒数为分母；仅在有效新按下激活后，对累计时长加一次 .2 秒，可超过 100%。超过 .8 为 Perfect、[.6,.8] Great、[.05,.6) Good，其余 Miss。排序的头 / 尾队列只增量激活在场长条；按最后时间与窗口交集积分。Inputs 将每个物理键 / pointerId 当作独立 owner，同轨 pressed 为 owner 的并集。新进入优先绑定同轨最早的可判定单点或长条，持续按住不自动绑定后续长条；松手时比例超过 .8 立即完成并移除，释放一个 owner 不终止其他输入，键盘 repeat 不触发纵连。
+
+键位几何沿用经典六轨方向，pointy 六边形 hit-test 和线段穿入检测支持快速滑动；每轨距离 / 大小独立，整体缩放保证可见。渲染沿用 DCPreview 的皮肤几何、贴图与 scroll 积分，判定始终基于音频时间，SV 不改变计分时刻。过线未按单点保留至 +100ms；已过线的未按长条头固定在判定点，100ms 后透明度 .5，按回为 1。皮肤有对应判定帧时绘制，文字始终显示真实判定作为回退。
+
+静态曲绘与判定框在尺寸改变时缓存为底图，默认皮肤绘制不执行无效的 0° / 100% Canvas 滤镜。试玩时暂时移出网页背景 iframe、暂停背景视频，返回时恢复；背景设置不改写。独立 requestAnimationFrame 循环无 targetFps 限制；试玩期间编辑器主绘制循环跳过工作，快捷键不传入编辑器。Web Audio 时钟驱动时间，输入校准同时作用于 Engine 的输入与推进，避免负校准产生逆时序。只停止自己的 source / gain，不 suspend 共享 AudioContext。暂停、blur、visibility / 音频中断 / fullscreen 退出均停止 source 并释放 owner；继续延后一秒启动新 source，不重计暂停间隙。取消、异常与退出移除监听、RAF、图像、下载 URL 和 inert，结果图 / CSV 由用户主动下载。
+
+结果按完成顺序累计分数与物量 Combo，长条可在松手满足 Perfect 时提前完成，否则尾后 100ms 结算。PNG 含聚合统计，CSV 含全部音符判定，play-results.js 按需绘制全部音符的双纵轴 Canvas 柱状图，支持缩放、平移和点选；不生成逐音符表格 DOM。两档 Perfect 数量仅统计单点；聚合 Perfect 同时包含长条。试玩设置只在模块内存记忆至刷新，分数不持久化、不发送官方请求，导出原生谱包不包含试玩状态。
+
+验证入口：`tests/play60.cjs`（纯逻辑）、`tests/app60.cjs`（全应用 DOM / Canvas / AudioContext fixture）。后者依赖与 app50 相同。边界与真实设备验收范围见 docs/testing.md；模拟时间参数不能证明真实触控、显示或声卡的端到端延迟。
+
+## 统一流速与背景分发（6.1.0）
+
+DCPreview.flight(speed) 是 1～12 流速的统一入口，返回 3 / speed 秒，motionRate 为其倒数；出现时的孵化也计入飞行时长。经典预览 / 试玩的可视索引与渲染、DCShowPreview 的外圈 / 内圈 / 滑条索引都共享此入口。BPMList、Effect scrollIntegral 与音乐判定时间独立，SV 下的实际飞行时长由积分决定。REC 的等效流速也按 3 / 测量时间显示，不改识别所得运动时间。previewSpeedModel 标记为 flight-3；flight-2.5 会话保持原数值，重复保存不二次换算；更旧格式仍走原历史迁移路径。
+
+全局键位开关分别控制大小 / 距离，逐轨字段禁用且同步；几何采用六边形分离轴检测防重叠，统一视口缩放不改变判定形状比例。按键反馈是独立的 CSS 图层，默认不透明度为零，不影响 hitFx。play-results.js 计算 D～SSS、非空 AP / FC，并生成早按蓝色、晚按品红、长条失分灰色柱形。CSV 同时保留原始 held、bonus、effectiveHeld。
+
+web-settings.js 直接用 DCSettings.effectiveURL 加载外部背景；删除默认 URL 转向本地 HTML 的特殊分支，删除 dist/assets/web-background/index.html，不在源码或部署中携带背景网页副本。保留 iframe sandbox 和 no-referrer；HTTPS 混合内容升级逻辑不变。远端不可用时允许设置中关闭或替换，不承诺离线背景。

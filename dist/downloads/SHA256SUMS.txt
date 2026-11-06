@@ -1,0 +1,2 @@
+2ffed48d46571ae455c4db1476166bf044ee311a34055895fcf04bbfca59fd30  dist/downloads/DanceCube-Studio-Android-1.0.1-preview.apk
+555fbb791d004f78d05d5e75028ebc60bec2a2151d556355b141d2e373e6e219  dist/downloads/DanceCube-Studio-setup-1.0.1fixed.exe

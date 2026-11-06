@@ -5,26 +5,30 @@ Add-Type -AssemblyName System.Drawing
 . (Join-Path $PSScriptRoot 'Launch-Studio.ps1')
 [Windows.Forms.Application]::EnableVisualStyles()
 function Ask-Value([string]$Title,[string]$Message,[string]$Default){
-    $form=[Windows.Forms.Form]::new();$form.Text=$Title;$form.Size=[Drawing.Size]::new(560,205);$form.StartPosition='CenterScreen';$form.FormBorderStyle='FixedDialog';$form.MaximizeBox=$false;$form.MinimizeBox=$false
+    $form=[Windows.Forms.Form]::new();$form.Text=$Title;$form.Size=[Drawing.Size]::new(560,205);$form.StartPosition='CenterScreen';$form.TopMost=$true;$form.FormBorderStyle='FixedDialog';$form.MaximizeBox=$false;$form.MinimizeBox=$false
     $label=[Windows.Forms.Label]::new();$label.Text=$Message;$label.Location=[Drawing.Point]::new(18,15);$label.Size=[Drawing.Size]::new(510,47)
     $text=[Windows.Forms.TextBox]::new();$text.Text=$Default;$text.Location=[Drawing.Point]::new(20,69);$text.Width=505
     $ok=[Windows.Forms.Button]::new();$ok.Text='确定';$ok.Location=[Drawing.Point]::new(350,112);$ok.DialogResult=[Windows.Forms.DialogResult]::OK
     $cancel=[Windows.Forms.Button]::new();$cancel.Text='取消';$cancel.Location=[Drawing.Point]::new(440,112);$cancel.DialogResult=[Windows.Forms.DialogResult]::Cancel
     $form.Controls.AddRange(@($label,$text,$ok,$cancel));$form.AcceptButton=$ok;$form.CancelButton=$cancel
+    $form.Add_Shown({$this.Activate()});Write-Host ('Waiting for input: '+$Title)
     if($form.ShowDialog() -ne [Windows.Forms.DialogResult]::OK){$form.Dispose();throw '用户取消安装。'};$value=$text.Text.Trim();$form.Dispose();return $value
 }
 function Download-Official([string]$Url,[string]$Destination,[string]$Proxy){$args=@{Uri=$Url;OutFile=$Destination;UseBasicParsing=$true;TimeoutSec=180;Headers=@{'User-Agent'='DanceCube-Studio-Setup'}};if($Proxy){$args.Proxy=$Proxy};Invoke-WebRequest @args}
 try {
-    Write-Host 'Checking GitHub and available local proxies...'
-    $proxy=Enable-StudioNetwork
+    Write-Host 'Opening installation options...'
     if(-not $Repository){$Repository=Ask-Value 'DanceCube Studio · GitHub 仓库' '粘贴维护者提供的源码仓库 HTTPS 地址。' ''}
     if(-not(Test-RepositoryUrl $Repository)){throw '仓库地址格式应为 https://github.com/所有者/仓库名'}
     $folderDialog=[Windows.Forms.FolderBrowserDialog]::new();$folderDialog.Description='选择一个本地空文件夹，存放网站、便携 Git 和启动器';$folderDialog.ShowNewFolderButton=$true
-    if($folderDialog.ShowDialog() -ne [Windows.Forms.DialogResult]::OK){throw '用户取消安装。'};$target=$folderDialog.SelectedPath;$folderDialog.Dispose()
+    $owner=[Windows.Forms.Form]::new();$owner.TopMost=$true;$owner.StartPosition='CenterScreen';$owner.Size=[Drawing.Size]::new(1,1);$owner.ShowInTaskbar=$false;$owner.Show();$owner.Activate()
+    Write-Host 'Waiting for installation folder selection...'
+    try {if($folderDialog.ShowDialog($owner) -ne [Windows.Forms.DialogResult]::OK){throw '用户取消安装。'};$target=$folderDialog.SelectedPath} finally {$folderDialog.Dispose();$owner.Dispose()}
     if(@(Get-ChildItem -LiteralPath $target -Force).Count){throw '目标文件夹必须为空，请重新运行安装器并选择空文件夹。'}
     $portText=Ask-Value 'DanceCube Studio · 本地端口' '选择本地网页端口（1024–65535，仅监听本机）。更改端口会使用独立的浏览器缓存。' '8964'
     $port=0;if(-not [int]::TryParse($portText,[ref]$port) -or $port -lt 1024 -or $port -gt 65535){throw '端口应为 1024–65535 的整数。'}
     $probe=[Net.Sockets.TcpListener]::new([Net.IPAddress]::Loopback,$port);try{$probe.Start()}catch{throw '所选端口已被占用，请重新选择。'}finally{$probe.Stop()}
+    Write-Host 'Checking GitHub and available local proxies...'
+    $proxy=Enable-StudioNetwork
     $gitCommand=Get-Command git -ErrorAction SilentlyContinue
     if($gitCommand){$git=$gitCommand.Source}else{
         Write-Host 'Downloading official Portable Git (no system installation)...'
@@ -35,13 +39,43 @@ try {
         $gitArchive=Join-Path $env:TEMP ('DanceCube-Git-'+[guid]::NewGuid().ToString('N')+'.exe')
         try{Download-Official $asset.browser_download_url $gitArchive $proxy;$actual=(Get-FileHash -LiteralPath $gitArchive -Algorithm SHA256).Hash.ToLowerInvariant();if($actual -ne $expected){throw '便携 Git 校验失败，未执行下载文件。'};$gitRoot=Join-Path $target 'git';$process=Start-Process -FilePath $gitArchive -ArgumentList @('-y',('-o"'+$gitRoot+'"')) -Wait -PassThru;if($process.ExitCode -ne 0){throw '便携 Git 解压失败。'};$git=Join-Path $gitRoot 'cmd/git.exe';if(-not(Test-Path $git)){throw '便携 Git 文件不完整。'}}finally{Remove-Item -LiteralPath $gitArchive -Force -ErrorAction SilentlyContinue}
     }
+    Write-Host ('Downloading website from '+$Repository+' ...')
     $source=Join-Path $target 'source';Sync-StudioRepository $git $Repository $source
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'Launch-Studio.ps1') -Destination (Join-Path $target 'Launch-Studio.ps1')
     @{repository=$Repository;port=$port;git=$git} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $target 'studio-config.json') -Encoding UTF8
     '@echo off'+"`r`n"+'cd /d "%~dp0"'+"`r`n"+'powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0Launch-Studio.ps1"'+"`r`n" | Set-Content -LiteralPath (Join-Path $target 'Start-DanceCube.bat') -Encoding ASCII
+    @"
+DanceCube Studio 安装器 1.0.0 · 卸载说明
+
+1. 关闭 DanceCube Studio 的本地启动器窗口，停止网页服务。
+2. 如需保留歌曲、谱面或设置，请先在网页中导出备份。
+3. 直接删除本安装目录即可卸载（包含 source、可选便携 Git、配置和启动器）。
+   本次安装目录：$target
+4. 如果创建了桌面快捷方式，请手动删除桌面的 DanceCube Studio 快捷方式。
+
+不需要运行卸载程序。不会删除电脑上原有的 Git。
+删除安装目录不会清除浏览器中的本地歌曲和缓存；如需清除，请在浏览器中删除对应 localhost 端口的站点数据。
+"@ | Set-Content -LiteralPath (Join-Path $target '卸载说明.txt') -Encoding UTF8
+    $shortcutChoice=[Windows.Forms.MessageBox]::Show('安装已完成。是否在桌面创建 DanceCube Studio 快捷方式？快捷方式将启动本安装目录中的 Start-DanceCube.bat。','DanceCube Studio 1.0.0',[Windows.Forms.MessageBoxButtons]::YesNo,[Windows.Forms.MessageBoxIcon]::Question)
+    if($shortcutChoice -eq [Windows.Forms.DialogResult]::Yes){
+        try {
+            $desktop=[Environment]::GetFolderPath([Environment+SpecialFolder]::DesktopDirectory)
+            $shortcutPath=Join-Path $desktop 'DanceCube Studio.lnk'
+            # Preserve an existing shortcut from another installation.
+            if(Test-Path -LiteralPath $shortcutPath){$shortcutPath=Join-Path $desktop ('DanceCube Studio-'+[guid]::NewGuid().ToString('N').Substring(0,8)+'.lnk')}
+            $shell=New-Object -ComObject WScript.Shell
+            $shortcut=$shell.CreateShortcut($shortcutPath)
+            $shortcut.TargetPath=Join-Path $target 'Start-DanceCube.bat'
+            $shortcut.WorkingDirectory=$target
+            $shortcut.Description='启动 DanceCube Studio 本地网页'
+            $shortcut.Save()
+        } catch {
+            [Windows.Forms.MessageBox]::Show(('桌面快捷方式创建失败，但安装已完成。请双击安装目录中的 Start-DanceCube.bat 启动。'+"`n"+$_.Exception.Message),'DanceCube Studio',[Windows.Forms.MessageBoxButtons]::OK,[Windows.Forms.MessageBoxIcon]::Warning) | Out-Null
+        }
+    }
     $argument='-NoProfile -ExecutionPolicy Bypass -File "'+(Join-Path $target 'Launch-Studio.ps1')+'"'
     Start-Process powershell.exe -ArgumentList $argument -WorkingDirectory $target
-    [Windows.Forms.MessageBox]::Show("安装完成。浏览器将打开 http://localhost:$port/`n以后双击 Start-DanceCube.bat，启动时会检查并更新源码。`n保持启动器窗口打开以运行网站；可以删除 setup.exe。",'DanceCube Studio',[Windows.Forms.MessageBoxButtons]::OK,[Windows.Forms.MessageBoxIcon]::Information) | Out-Null
+    [Windows.Forms.MessageBox]::Show("安装完成。浏览器将打开 http://localhost:$port/`n以后双击 Start-DanceCube.bat，启动时会检查并更新源码。`n保持启动器窗口打开以运行网站；可以删除 setup.exe。`n卸载方法：关闭启动器后直接删除整个安装目录；如有桌面快捷方式，请手动删除。详见安装目录中的“卸载说明.txt”。",'DanceCube Studio',[Windows.Forms.MessageBoxButtons]::OK,[Windows.Forms.MessageBoxIcon]::Information) | Out-Null
     exit 0
 } catch {
     [Windows.Forms.MessageBox]::Show($_.Exception.Message,'安装未完成',[Windows.Forms.MessageBoxButtons]::OK,[Windows.Forms.MessageBoxIcon]::Error) | Out-Null

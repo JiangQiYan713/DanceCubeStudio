@@ -1,0 +1,16 @@
+'use strict';
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const v={console,TextEncoder,TextDecoder,Blob,crypto:require('node:crypto').webcrypto};vm.createContext(v);for(const f of ['core','units','settings-core','project','preview-shared','play-calibration'])vm.runInContext(fs.readFileSync(__dirname+'/../dist/'+f+'.js','utf8'),v);
+const A=v.DCPlayCalibration,P=v.DCPreview,S=v.DCSettings;
+assert.equal(S.normalize({theme:'hacker'}).theme,'hacker');assert.equal(S.unpack(S.pack({theme:'hacker'})).theme,'hacker','theme survives portable settings');
+assert.equal(A.deliveryLag(120,136,100000),16);assert.equal(A.deliveryLag(1700000000120,136,1700000000000),16);assert.equal(A.deliveryLag(200,136),null);assert.equal(A.deliveryLag(10,5000),null);
+let trial=new A.Trial(10);assert.equal(trial.targets.join(','),'10,10.5,11,11.5');assert.equal(trial.tap(9),null);for(let i=0;i<4;i++){assert(trial.tap(10+i*.5+.075,8+i));assert.equal(trial.tap(10+i*.5+.076),null,'one sample per beat');}let result=trial.result();assert.equal(result.offset,-75);assert(Math.abs(result.delivery-9.5)<1e-8);assert(result.stable);
+trial=new A.Trial(10,-100);for(let i=0;i<4;i++)trial.tap(10+i*.5+.13,12);assert.equal(trial.result().offset,-130,'suggestion is absolute compensation, not a second application');
+trial=new A.Trial(10);for(let i=0;i<4;i++)trial.tap(10+i*.5-.08,6);assert.equal(trial.result().offset,80,'early taps get positive compensation');assert.throws(()=>new A.Trial(10).result(),/四拍/);
+result=A.estimate([{residual:-100},{residual:120},{residual:20},{residual:40}]);assert.equal(result.stable,false);assert.equal(result.offset,-30);assert.equal(result.delivery,null);
+const skin={config:()=>({size:'52.8,52.8',tex:'blue',tex2:'body',tex3:'tail',tex4:'yellow'}),position:(n,f)=>f},l=P.layout(828,808,skin,{previewOffsets:{spawn:20,outer:-5}}),item={n:{id:'h',beat:2,end:8,lane:0},time:1,end:4,scroll:1,endScroll:4},growth=l.growth,time=1-(1-growth/2)*P.flight(5),draws=[],ctx={globalAlpha:1,save(){},restore(){}};
+skin.draw=(c,name,...args)=>{draws.push({name,args});return true;};skin.drawHold=(...args)=>draws.push({name:'body',args});
+const m=P.drawClassicNote(ctx,skin,l,item,{time,scrollNow:time,speed:5,prefs:{}});assert(Math.abs(m.head.size-.5)<1e-8,'same growth incubation as ordinary preview');assert.equal(m.tail.visible,true,'tail remains present as soon as head is present');assert.equal(m.tail.size,m.head.size);assert(draws.some(d=>d.name==='tail'));
+const expected=P.ordinary(item,time,time,P.motionRate(5),l.starts[0],P.noteEnd(l,0,false),l.growth);assert.equal(JSON.stringify(m),JSON.stringify(expected));
+const tap={...item,n:{...item.n,end:null},end:null};assert.equal(P.drawClassicNote(ctx,skin,l,tap,{time:1.05,scrollNow:1.05,speed:5,late:true}).head.visible,true,'playtest fixed late window is an explicit extension');assert.equal(P.drawClassicNote(ctx,skin,l,tap,{time:1.05,scrollNow:1.05,speed:5}).head.visible,false,'editor preview remains unchanged');
+console.log('PASS hacker theme roundtrip, signed four-beat suggestions, event timestamp domains, duplicate/outlier gates and shared spawn/growth/retained-tail rendering.');
